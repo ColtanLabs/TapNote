@@ -1,6 +1,48 @@
 <resources>
     <string name="app_name">Tap Note</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="note_head">Note Title</string>
+    <string name="note_excerpt">This is the note that I want to...</string>
+    <string name="note_tag">tagfornote</string>
+
+    <string-array name="note_head">
+        <item>Note 1</item>
+        <item>Note 2</item>
+        <item>Note 3</item>
+        <item>Note 4</item>
+        <item>Note 5</item>
+        <item>Note 6</item>
+        <item>Note 7</item>
+        <item>Note 8</item>
+        <item>Note 9</item>
+        <item>Note 10</item>
+    </string-array>
+
+    <string-array name="note_excerpt">
+        <item>This is the excerpt of the content 1</item>
+        <item>This is the excerpt of the content 2</item>
+        <item>This is the excerpt of the content 3</item>
+        <item>This is the excerpt of the content 4</item>
+        <item>This is the excerpt of the content 5</item>
+        <item>This is the excerpt of the content 6</item>
+        <item>This is the excerpt of the content 7</item>
+        <item>This is the excerpt of the content 8</item>
+        <item>This is the excerpt of the content 9</item>
+        <item>This is the excerpt of the content 10</item>
+    </string-array>
+
+
+    <string-array name="note_tag">
+        <item>Tag 1</item>
+        <item>Tag 2</item>
+        <item>Tag 3</item>
+        <item>Tag 4</item>
+        <item>Tag 5</item>
+        <item>Tag 6</item>
+        <item>Tag 7</item>
+        <item>Tag 8</item>
+        <item>Tag 9</item>
+        <item>Tag 10</item>
+    </string-array>
 </resources>

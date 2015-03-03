@@ -1,12 +1,22 @@
 package com.rj.tapnote;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+
+    public ListView list;
+
+    public String[] noteHeadings;
+    String[] noteExcerpts;
+    String[] noteTags;
+    Resources res = getResources();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,26 +24,29 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public String[] getRes() {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        noteHeadings = res.getStringArray(R.array.note_head);
+        noteExcerpts = res.getStringArray(R.array.note_excerpt);
+        noteTags = res.getStringArray(R.array.note_tag);
+
+        return noteHeadings;
+
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public View findViewById(int id) {
+        list = (ListView) findViewById(R.id.main_list);
+        return list;
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+}
 
-        return super.onOptionsItemSelected(item);
+class TapNote extends ArrayAdapter<String> {
+
+    TapNote(Context c, String[] noteHeadings) {
+        super(c, R.layout.single_row, R.id.note_head, noteHeadings);
+
     }
 }
