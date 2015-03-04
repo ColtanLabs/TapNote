@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_tn_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.rj.tapnote.AddNote">
+
+
+    <TextView
+        android:id="@+id/noteTitle"
+        style="@style/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Title" />
+
+    <EditText
+        android:id="@+id/editTitle"
+        style="@style/editTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/noteTitle"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/noteTag"
+        style="@style/tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/editTitle"
+
+        android:layout_toRightOf="@+id/editTitle"
+        android:text="Tag"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <EditText
+        android:id="@+id/editTag"
+        style="@style/editTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/noteContent"
+        android:layout_alignBaseline="@id/editTitle"
+        android:layout_alignLeft="@+id/noteTag"
+
+        android:layout_alignStart="@+id/noteTag"
+        android:layout_below="@+id/noteTitle"
+        android:ems="10"
+        android:hint="bank,office"
+        android:inputType="textPersonName"
+        android:textColorHint="#c6c6c6" />
+
+    <EditText
+        android:id="@+id/noteContent"
+        style="@style/editContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/editTag"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editTag"
+        android:layout_below="@+id/editTitle"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+
+</RelativeLayout>

@@ -34,6 +34,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/round_corner"
         android:text="@string/note_tag"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 </RelativeLayout>

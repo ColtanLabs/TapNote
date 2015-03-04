@@ -6,6 +6,7 @@
     <string name="note_excerpt">This is the note that I want to...</string>
     <string name="note_tag">tagfornote</string>
 
+
     <string-array name="note_head">
         <item>Note 1</item>
         <item>Note 2</item>
@@ -45,4 +46,5 @@
         <item>Tag 9</item>
         <item>Tag 10</item>
     </string-array>
+    <string name="title_activity_add_note">AddNote</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.rj.tapnote;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,13 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-    private Toolbar toolbar;
     String[] noteHeadings, noteExcerpts, noteTags;
     ListView list;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +55,10 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "Just clicked Setting", Toast.LENGTH_SHORT).show();
-            return true;
+            // Toast.makeText(this, "Just clicked Setting", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, AddNote.class);
+            startActivity(i);
+            //return true;
         }
         return super.onOptionsItemSelected(item);
     }
