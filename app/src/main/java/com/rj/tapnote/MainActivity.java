@@ -19,7 +19,6 @@ public class MainActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
     String[] noteHeadings, noteExcerpts, noteTags;
-
     ListView list;
 
     @Override
@@ -66,9 +65,7 @@ public class MainActivity extends ActionBarActivity {
 class TapNote extends ArrayAdapter<String> {
 
     Context context;
-    String[] headArray;
-    String[] excerptArray;
-    String[] tagArray;
+    String[] headArray, excerptArray, tagArray;
 
     TapNote(Context c, String[] noteHeadings, String[] noteExcerpts, String[] noteTags) {
         super(c, R.layout.single_row1, R.id.note_head, noteHeadings);
