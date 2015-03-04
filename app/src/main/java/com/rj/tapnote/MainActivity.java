@@ -39,11 +39,9 @@ public class MainActivity extends Activity {
         TapNote a = new TapNote(this, noteHeadings, noteExcerpts, noteTags);
         list.setAdapter(a);
     }
-
-
 }
 
-class TapNote extends ArrayAdapter<String> {
+class TapNote extends ArrayAdapter<String>{
 
     Context context;
     String[] headArray;
@@ -52,14 +50,15 @@ class TapNote extends ArrayAdapter<String> {
 
     TapNote(Context c, String[] noteHeadings, String[] noteExcerpts, String[] noteTags) {
         super(c, R.layout.single_row1, R.id.note_head, noteHeadings);
+        this.context = c;
         this.headArray = noteHeadings;
         this.excerptArray = noteExcerpts;
-        this.headArray = noteTags;
+        this.tagArray = noteTags;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.single_row1, parent, false);
         TextView tnHead = (TextView) row.findViewById(R.id.note_head);
         TextView tnExcerpt = (TextView) row.findViewById(R.id.note_excerpt);
