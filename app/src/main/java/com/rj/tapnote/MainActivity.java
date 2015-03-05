@@ -54,9 +54,9 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
             // Toast.makeText(this, "Just clicked Setting", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this, AddNote.class);
+            Intent i = new Intent(this, AddNoteActivity.class);
             startActivity(i);
             //return true;
         }

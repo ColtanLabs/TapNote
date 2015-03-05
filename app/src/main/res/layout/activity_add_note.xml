@@ -3,21 +3,18 @@
     android:id="@+id/edit_tn_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.rj.tapnote.AddNote">
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
 
     <TextView
         android:id="@+id/noteTitle"
         style="@style/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/app_bar"
         android:text="Title" />
 
     <EditText
@@ -36,12 +33,12 @@
         style="@style/tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/editTitle"
 
-        android:layout_toRightOf="@+id/editTitle"
         android:text="Tag"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/app_bar"
+        android:layout_toRightOf="@+id/editTitle"
+        android:layout_toEndOf="@+id/editTitle" />
 
 
     <EditText
