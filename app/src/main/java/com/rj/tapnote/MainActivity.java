@@ -39,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
         list = (ListView) findViewById(R.id.main_list);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.attachToListView(list);
+        fab.show();
         TapNote a = new TapNote(this, noteHeadings, noteExcerpts, noteTags);
         list.setAdapter(a);
 

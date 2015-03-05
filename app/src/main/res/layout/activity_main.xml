@@ -26,5 +26,5 @@
         android:src="@mipmap/ic_action_content_add"
         fab:fab_colorNormal="@color/colorAccent"
         fab:fab_colorPressed="@color/colorAccentPressed"
-        fab:fab_colorRipple="@color/colorAccent" />
+        fab:fab_colorRipple="@color/colorRipple" />
 </RelativeLayout>
