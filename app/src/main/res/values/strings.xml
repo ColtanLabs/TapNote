@@ -46,5 +46,5 @@
         <item>Tag 9</item>
         <item>Tag 10</item>
     </string-array>
-    <string name="title_activity_add_note">AddNote</string>
+    <string name="title_activity_add_note">Add Note</string>
 </resources>

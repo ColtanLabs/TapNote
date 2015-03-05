@@ -46,8 +46,7 @@ public class MainActivity extends ActionBarActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), AddNoteActivity.class);
-                startActivity(i);
+                startActivity(new Intent(v.getContext(), AddNoteActivity.class));
             }
         });
     }
