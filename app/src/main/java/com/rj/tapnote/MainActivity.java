@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.melnykov.fab.FloatingActionButton;
+
 public class MainActivity extends ActionBarActivity {
 
     String[] noteHeadings, noteExcerpts, noteTags;
@@ -35,8 +37,18 @@ public class MainActivity extends ActionBarActivity {
         noteTags = res.getStringArray(R.array.note_tag);
 
         list = (ListView) findViewById(R.id.main_list);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.attachToListView(list);
         TapNote a = new TapNote(this, noteHeadings, noteExcerpts, noteTags);
         list.setAdapter(a);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), AddNoteActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -54,12 +66,7 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add) {
-            // Toast.makeText(this, "Just clicked Setting", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this, AddNoteActivity.class);
-            startActivity(i);
-            //return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 }

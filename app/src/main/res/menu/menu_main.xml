@@ -7,9 +7,4 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_add"
-        android:icon="@mipmap/ic_action_content_add"
-        android:title="Add"
-        app:showAsAction="always" />
 </menu>
