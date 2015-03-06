@@ -7,69 +7,62 @@
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/app_bar" />
+        layout="@layout/app_bar_add_note" />
 
     <TextView
-        android:id="@+id/noteTitle"
-        style="@style/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_bar"
-        android:text="Title" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Title"
+        android:layout_marginLeft="72dp"
+        android:id="@+id/textView"
+        android:layout_marginTop="56dp" />
 
     <EditText
         android:id="@+id/editTitle"
         style="@style/editTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/noteTitle"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:layout_marginLeft="72dp"
+        android:layout_marginRight="16dp"
+        android:inputType="text"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:id="@+id/noteTag"
-        style="@style/tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:paddingTop="8dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Tag"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/app_bar"
-        android:layout_toRightOf="@+id/editTitle"
-        android:layout_toEndOf="@+id/editTitle" />
+        android:layout_marginLeft="72dp"
+        android:id="@+id/textView2"
+        android:layout_marginTop="144dp" />
 
 
     <EditText
         android:id="@+id/editTag"
-        style="@style/editTag"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/noteContent"
-        android:layout_alignBaseline="@id/editTitle"
-        android:layout_alignLeft="@+id/noteTag"
-
-        android:layout_alignStart="@+id/noteTag"
-        android:layout_below="@+id/noteTitle"
+        android:layout_marginRight="16dp"
         android:ems="10"
-        android:hint="bank,office"
-        android:inputType="textPersonName"
-        android:textColorHint="#c6c6c6" />
+        android:inputType="text"
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/noteContent"
-        style="@style/editContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignEnd="@+id/editTag"
-
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editTag"
-        android:layout_below="@+id/editTitle"
-        android:ems="10"
-        android:inputType="textMultiLine" />
-
+        android:layout_height="wrap_content"
+        android:hint="Note"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:inputType="textMultiLine"
+        android:layout_below="@+id/app_bar" />
 
 </RelativeLayout>
