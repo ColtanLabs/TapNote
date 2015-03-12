@@ -1,27 +1,28 @@
 package com.rj.tapnote;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends ActionBarActivity {
 
-    String[] noteHeadings, noteExcerpts, noteTags;
-    ListView list;
     private Toolbar toolbar;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<String> mHeader, mSubHeader, mTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +33,25 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         Resources res = getResources();
-        noteHeadings = res.getStringArray(R.array.note_head);
-        noteExcerpts = res.getStringArray(R.array.note_excerpt);
-        noteTags = res.getStringArray(R.array.note_tag);
 
-        list = (ListView) findViewById(R.id.main_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.attachToListView(list);
+        fab.attachToRecyclerView(mRecyclerView);
         fab.show();
-        TapNote a = new TapNote(this, noteHeadings, noteExcerpts, noteTags);
-        list.setAdapter(a);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mHeader = new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.note_head)));
+        mSubHeader = new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.note_excerpt)));
+        mTag = new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.note_tag)));
+
+        mAdapter = new NoteAdapter(mHeader, mSubHeader, mTag);
+        mRecyclerView.setAdapter(mAdapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,33 +78,5 @@ public class MainActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
 
         return super.onOptionsItemSelected(item);
-    }
-}
-
-class TapNote extends ArrayAdapter<String> {
-
-    Context context;
-    String[] headArray, excerptArray, tagArray;
-
-    TapNote(Context c, String[] noteHeadings, String[] noteExcerpts, String[] noteTags) {
-        super(c, R.layout.single_row1, R.id.note_head, noteHeadings);
-        this.context = c;
-        this.headArray = noteHeadings;
-        this.excerptArray = noteExcerpts;
-        this.tagArray = noteTags;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.single_row1, parent, false);
-        TextView tnHead = (TextView) row.findViewById(R.id.note_head);
-        TextView tnExcerpt = (TextView) row.findViewById(R.id.note_excerpt);
-        TextView tnTag = (TextView) row.findViewById(R.id.note_tag);
-        tnHead.setText(headArray[position]);
-        tnExcerpt.setText(excerptArray[position]);
-        tnTag.setText(tagArray[position]);
-
-        return row;
     }
 }
