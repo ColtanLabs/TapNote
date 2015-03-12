@@ -6,10 +6,19 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.rj.tapnote.db.DatabaseHandler;
+import com.rj.tapnote.db.Note;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class AddNoteActivity extends ActionBarActivity {
 
+    EditText etTitle, etTag, etNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +30,10 @@ public class AddNoteActivity extends ActionBarActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        etTitle = (EditText) findViewById(R.id.editTitle);
+        etTag = (EditText) findViewById(R.id.editTag);
+        etNote = (EditText) findViewById(R.id.noteContent);
     }
 
 
@@ -45,8 +58,28 @@ public class AddNoteActivity extends ActionBarActivity {
 
         if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        String title = etTitle.getText().toString();
+        String tag = etTag.getText().toString();
+        String note = etNote.getText().toString();
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+        if (title.isEmpty() || title.equals("")) {
+            etTitle.setError("Please enter a title");
+        } else {
+            DatabaseHandler db = new DatabaseHandler(this);
+            db.addNote(new Note(title, note, tag, formattedDate));
+            db.close();
+            Toast.makeText(this, "Successfully added note", Toast.LENGTH_SHORT).show();
+        }
     }
 }

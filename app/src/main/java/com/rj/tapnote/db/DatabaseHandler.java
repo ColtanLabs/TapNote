@@ -1,9 +1,14 @@
 package com.rj.tapnote.db;
 
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -32,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NOTE + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITLE + " TEXT,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TITLE + " TEXT,"
                 + KEY_NOTE + " TEXT," + KEY_TAG + " TEXT,"
                 + KEY_DATE + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
@@ -52,20 +57,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
-    // Adding new contact
-//    void addContact(Contact contact) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put(KEY_NAME, contact.getName()); // Contact Name
-//        values.put(KEY_PH_NO, contact.getPhoneNumber()); // Contact Phone
-//
-//        // Inserting Row
-//        db.insert(TABLE_CONTACTS, null, values);
-//        db.close(); // Closing database connection
-//    }
-//
-//    // Getting single contact
+    //Adding new contact
+    public void addNote(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, note.getTitle());
+        values.put(KEY_NOTE, note.getNote());
+        values.put(KEY_TAG, note.getTag());
+
+        // Inserting Row
+        db.insert(TABLE_NOTE, null, values);
+        db.close(); // Closing database connection
+    }
+
+    // Getting single contact
 //    Contact getContact(int id) {
 //        SQLiteDatabase db = this.getReadableDatabase();
 //
@@ -81,31 +87,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        return contact;
 //    }
 //
-//    // Getting All Contacts
-//    public List<Contact> getAllContacts() {
-//        List<Contact> contactList = new ArrayList<Contact>();
-//        // Select All Query
-//        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//        // looping through all rows and adding to list
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Contact contact = new Contact();
-//                contact.setID(Integer.parseInt(cursor.getString(0)));
-//                contact.setName(cursor.getString(1));
-//                contact.setPhoneNumber(cursor.getString(2));
-//                // Adding contact to list
-//                contactList.add(contact);
-//            } while (cursor.moveToNext());
-//        }
-//
-//        // return contact list
-//        return contactList;
-//    }
-//
+    // Getting All Contacts
+    public List<Note> getAllNotes() {
+        List<Note> noteList = new ArrayList<Note>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_NOTE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Note note = new Note();
+                note.setID(Integer.parseInt(cursor.getString(0)));
+                note.setTitle(cursor.getString(1));
+                note.setNote(cursor.getString(2));
+                note.setTag(cursor.getString(3));
+                note.setDate(cursor.getString(4));
+                // Adding contact to list
+                noteList.add(note);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return noteList;
+    }
+
 //    // Updating single contact
 //    public int updateContact(Contact contact) {
 //        SQLiteDatabase db = this.getWritableDatabase();

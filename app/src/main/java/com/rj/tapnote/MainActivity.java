@@ -1,7 +1,6 @@
 package com.rj.tapnote;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.rj.tapnote.db.DatabaseHandler;
+import com.rj.tapnote.db.Note;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -22,7 +23,9 @@ public class MainActivity extends ActionBarActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<String> mHeader, mSubHeader, mTag;
+    private ArrayList<String> mHeader = new ArrayList<>();
+    private ArrayList<String> mSubHeader = new ArrayList<>();
+    private ArrayList<String> mTag = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +34,6 @@ public class MainActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-
-        Resources res = getResources();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -46,9 +47,14 @@ public class MainActivity extends ActionBarActivity {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mHeader = new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.note_head)));
-        mSubHeader = new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.note_excerpt)));
-        mTag = new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.note_tag)));
+
+        DatabaseHandler db = new DatabaseHandler(this);
+        List<Note> notes = db.getAllNotes();
+        for (Note nt : notes) {
+            mHeader.add(nt.getTitle());
+            mSubHeader.add(nt.getNote());
+            mTag.add(nt.getTag());
+        }
 
         mAdapter = new NoteAdapter(mHeader, mSubHeader, mTag);
         mRecyclerView.setAdapter(mAdapter);

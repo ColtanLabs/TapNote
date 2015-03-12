@@ -15,8 +15,7 @@ public class Note {
     }
 
     // constructor
-    public Note(int id, String title, String note, String tag, String date) {
-        this._id = id;
+    public Note(String title, String note, String tag, String date) {
         this._title = title;
         this._note = note;
         this._tag = tag;
@@ -51,5 +50,25 @@ public class Note {
     // setting note
     public void setNote(String note) {
         this._note = note;
+    }
+
+    // getting tag
+    public String getTag() {
+        return this._tag;
+    }
+
+    // setting tag
+    public void setTag(String tag) {
+        this._tag = tag;
+    }
+
+    // getting date
+    public String getDate() {
+        return this._date;
+    }
+
+    // setting date
+    public void setDate(String date) {
+        this._date = date;
     }
 }
