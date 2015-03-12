@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
+
     private ArrayList<String> mDataset, mSubHeader, mTag;
 
     // Provide a reference to the views for each data item
@@ -66,7 +67,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         holder.txtHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(name);
+                //remove(name);
             }
         });
 

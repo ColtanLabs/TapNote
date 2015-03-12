@@ -53,41 +53,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /**
-     * All CRUD(Create, Read, Update, Delete) Operations
-     */
+    /* All CRUD(Create, Read, Update, Delete) Operations */
 
-    //Adding new contact
+    //Adding new note
     public void addNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_NOTE, note.getNote());
         values.put(KEY_TAG, note.getTag());
-
-        // Inserting Row
         db.insert(TABLE_NOTE, null, values);
-        db.close(); // Closing database connection
+        db.close();
     }
 
-    // Getting single contact
-//    Contact getContact(int id) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
-//                        KEY_NAME, KEY_PH_NO }, KEY_ID + "=?",
-//                new String[] { String.valueOf(id) }, null, null, null, null);
-//        if (cursor != null)
-//            cursor.moveToFirst();
-//
-//        Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),
-//                cursor.getString(1), cursor.getString(2));
-//        // return contact
-//        return contact;
-//    }
-//
-    // Getting All Contacts
+    // Getting single note
+    public Note getNote(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NOTE, new String[]{
+                        KEY_TITLE, KEY_NOTE, KEY_TAG, KEY_DATE}, KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Note note = new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        db.close();
+        return note;
+    }
+
+    // Getting All notes
     public List<Note> getAllNotes() {
         List<Note> noteList = new ArrayList<Note>();
         // Select All Query
@@ -104,7 +98,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setNote(cursor.getString(2));
                 note.setTag(cursor.getString(3));
                 note.setDate(cursor.getString(4));
-                // Adding contact to list
+                // Adding note to list
                 noteList.add(note);
             } while (cursor.moveToNext());
         }
@@ -112,28 +106,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return noteList;
     }
 
-//    // Updating single contact
-//    public int updateContact(Contact contact) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put(KEY_NAME, contact.getName());
-//        values.put(KEY_PH_NO, contact.getPhoneNumber());
-//
-//        // updating row
-//        return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
-//                new String[] { String.valueOf(contact.getID()) });
-//    }
-//
-//    // Deleting single contact
-//    public void deleteContact(Contact contact) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
-//                new String[] { String.valueOf(contact.getID()) });
-//        db.close();
-//    }
-//
-//
+    // Updating single note
+    public int updateNote(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, note.getTitle());
+        values.put(KEY_TAG, note.getTag());
+        values.put(KEY_NOTE, note.getNote());
+        // updating row
+        return db.update(TABLE_NOTE, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(note.getID())});
+    }
+
+    // Deleting single note
+    public void deleteNote(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NOTE, KEY_ID + " = ?",
+                new String[]{String.valueOf(id)});
+        db.close();
+    }
+
 //    // Getting contacts Count
 //    public int getContactsCount() {
 //        String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;

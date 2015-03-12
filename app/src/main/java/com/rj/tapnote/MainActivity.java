@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.rj.tapnote.db.DatabaseHandler;
@@ -17,12 +18,13 @@ import com.rj.tapnote.db.Note;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements RecyclerItemClickListener.OnItemClickListener {
 
     private Toolbar toolbar;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<String> mId = new ArrayList<>();
     private ArrayList<String> mHeader = new ArrayList<>();
     private ArrayList<String> mSubHeader = new ArrayList<>();
     private ArrayList<String> mTag = new ArrayList<>();
@@ -51,6 +53,7 @@ public class MainActivity extends ActionBarActivity {
         DatabaseHandler db = new DatabaseHandler(this);
         List<Note> notes = db.getAllNotes();
         for (Note nt : notes) {
+            mId.add(String.valueOf(nt.getID()));
             mHeader.add(nt.getTitle());
             mSubHeader.add(nt.getNote());
             mTag.add(nt.getTag());
@@ -65,6 +68,24 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(v.getContext(), AddNoteActivity.class));
             }
         });
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
+    }
+
+    @Override
+    public void onItemClick(View childView, int position) {
+        // Do something when an item is clicked.
+        Toast.makeText(this, "Single tap " + position, Toast.LENGTH_SHORT).show();
+        int id = Integer.parseInt(mId.get(position));
+        Intent i = new Intent(this, EditNoteActivity.class);
+        i.putExtra("id", id);
+        startActivity(i);
+    }
+
+    @Override
+    public void onItemLongPress(View childView, int position) {
+        // Do another thing when an item is long pressed.
+        Toast.makeText(this, "Long tap " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
