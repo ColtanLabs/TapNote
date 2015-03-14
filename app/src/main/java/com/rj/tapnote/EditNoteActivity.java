@@ -1,8 +1,14 @@
 package com.rj.tapnote;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,8 +24,10 @@ import java.util.Calendar;
 
 public class EditNoteActivity extends ActionBarActivity {
 
+    private ShareActionProvider mShareActionProvider;
     EditText etTitle, etTag, etNote;
-    int id;
+    private int id;
+    private Intent shareIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,28 @@ public class EditNoteActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_add_note, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.action_share);
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+        // Attach an intent to this ShareActionProvider.  You can update this at any time,
+        // like when the user selects a new piece of data they might like to share.
+        shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        mShareActionProvider.setShareIntent(setMyShareIntent(shareIntent));
         return true;
+    }
+
+    // Call to update the share intent
+    private Intent setMyShareIntent(Intent shareIntent) {
+        shareIntent.setType("text/plain");
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+        // Add data to the intent, the receiving app will decide what to do with it.
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, etTitle.getText().toString());
+        shareIntent.putExtra(Intent.EXTRA_TEXT, etNote.getText().toString());
+
+        return shareIntent;
     }
 
     @Override
@@ -61,9 +90,6 @@ public class EditNoteActivity extends ActionBarActivity {
         int menuId = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (menuId == R.id.action_settings) {
-            return true;
-        }
         if (menuId == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             onBackPressed();
@@ -73,6 +99,18 @@ public class EditNoteActivity extends ActionBarActivity {
             db.deleteNote(id);
             finish();
         }
+        if (menuId == R.id.action_copy) {
+            // Gets a handle to the clipboard service.
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            // Creates a new text clip to put on the clipboard
+            ClipData clip = ClipData.newPlainText(etTitle.getText().toString(), etNote.getText().toString());
+            // Set the clipboard's primary clip.
+            clipboard.setPrimaryClip(clip);
+        }
+        if (menuId == R.id.action_share) {
+            startActivity(Intent.createChooser(shareIntent, "Share via"));
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

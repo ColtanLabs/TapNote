@@ -3,6 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <solid android:color="#CDDC39" />
+    <solid android:color="#FFC107" />
     <corners android:radius="15dp" />
 </shape>
