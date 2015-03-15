@@ -6,8 +6,8 @@
         android:id="@+id/action_share"
         android:icon="@mipmap/ic_action_share"
         android:title="Share"
-        app:showAsAction="always"
-        app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_copy"

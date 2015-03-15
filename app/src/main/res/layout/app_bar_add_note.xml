@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="232dp"
     android:background="@color/colorPrimary"
-    android:minHeight="?android:attr/actionBarSize"
     android:elevation="5dp"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    android:gravity="top"
+    android:minHeight="?android:attr/actionBarSize"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    android:gravity="top">
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 </android.support.v7.widget.Toolbar>
