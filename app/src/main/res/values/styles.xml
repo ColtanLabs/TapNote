@@ -46,32 +46,4 @@
         <item name="android:bottomLeftRadius">15dp</item>
     </style>
 
-    <style name="title">
-        <item name="android:textColor">#666</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-
-    <style name="editTitle">
-        <item name="android:textColor">#000</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="tag">
-        <item name="android:textColor">#666</item>
-        <item name="android:textSize">15sp</item>
-
-    </style>
-
-    <style name="editTag">
-        <item name="android:textColor">#000</item>
-        <item name="android:textSize">20sp</item>
-
-    </style>
-
-    <style name="editContent">
-        <item name="android:textColor">#000</item>
-        <item name="android:textSize">20sp</item>
-
-    </style>
-
 </resources>
