@@ -1,5 +1,8 @@
 package com.rj.tapnote;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -84,7 +87,7 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
     @Override
     public void onItemClick(View childView, int position) {
         // Do something when an item is clicked.
-        Toast.makeText(this, "Single tap " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Single tap " + position, Toast.LENGTH_SHORT).show();
         int id = Integer.parseInt(mId.get(position));
         Intent i = new Intent(this, EditNoteActivity.class);
         i.putExtra("id", id);
@@ -94,7 +97,14 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
     @Override
     public void onItemLongPress(View childView, int position) {
         // Do another thing when an item is long pressed.
-        Toast.makeText(this, "Long tap " + position, Toast.LENGTH_SHORT).show();
+
+        // Gets a handle to the clipboard service.
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        // Creates a new text clip to put on the clipboard
+        ClipData clip = ClipData.newPlainText(mHeader.get(position), mSubHeader.get(position));
+        // Set the clipboard's primary clip.
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
     }
 
     @Override
