@@ -55,7 +55,16 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
         for (Note nt : notes) {
             mId.add(String.valueOf(nt.getID()));
             mHeader.add(nt.getTitle());
-            mSubHeader.add(nt.getNote());
+            String note = nt.getNote();
+            note = note.replace("\n", " ");
+            String cnote;
+            if (note.length() > 25) {
+                cnote = note.substring(0, 25);
+                cnote = cnote.concat("...");
+            } else {
+                cnote = note;
+            }
+            mSubHeader.add(cnote);
             mTag.add(nt.getTag());
         }
 
