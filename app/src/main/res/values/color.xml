@@ -6,4 +6,5 @@
     <color name="colorAccentPressed">#AFB42B</color>
     <color name="colorRipple">#827717</color>
     <color name="white">#FFFFFF</color>
+    <color name="secondaryText">#727272</color>
 </resources>
