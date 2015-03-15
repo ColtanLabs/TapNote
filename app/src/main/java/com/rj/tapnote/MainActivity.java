@@ -31,6 +31,7 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
     private ArrayList<String> mHeader = new ArrayList<>();
     private ArrayList<String> mSubHeader = new ArrayList<>();
     private ArrayList<String> mTag = new ArrayList<>();
+    private ArrayList<String> mNote = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
             mId.add(String.valueOf(nt.getID()));
             mHeader.add(nt.getTitle());
             String note = nt.getNote();
+            mNote.add(note);
             note = note.replace("\n", " ");
             String cnote;
             if (note.length() > 25) {
@@ -101,7 +103,7 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
         // Gets a handle to the clipboard service.
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         // Creates a new text clip to put on the clipboard
-        ClipData clip = ClipData.newPlainText(mHeader.get(position), mSubHeader.get(position));
+        ClipData clip = ClipData.newPlainText(mHeader.get(position), mNote.get(position));
         // Set the clipboard's primary clip.
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
