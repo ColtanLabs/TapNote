@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00796B</color>
-    <color name="colorAccent">#CDDC39</color>
-    <color name="colorAccentPressed">#AFB42B</color>
-    <color name="colorRipple">#827717</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorAccentPressed">#FFB300</color>
+    <color name="colorRipple">#FF6F00</color>
     <color name="white">#FFFFFF</color>
     <color name="secondaryText">#727272</color>
 </resources>
