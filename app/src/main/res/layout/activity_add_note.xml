@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rj.tapnote.AddNote">
+    tools:context="com.coltan.tapnote.AddNote">
 
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar_add_note" />
 
-    <com.rj.tapnote.FloatLabelLayout
+    <com.coltan.tapnote.FloatLabelLayout
         android:id="@+id/floatTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,9 +32,9 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
-    </com.rj.tapnote.FloatLabelLayout>
+    </com.coltan.tapnote.FloatLabelLayout>
 
-    <com.rj.tapnote.FloatLabelLayout
+    <com.coltan.tapnote.FloatLabelLayout
         android:id="@+id/floatTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,9 +57,9 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
-    </com.rj.tapnote.FloatLabelLayout>
+    </com.coltan.tapnote.FloatLabelLayout>
 
-    <com.rj.tapnote.FloatLabelLayout
+    <com.coltan.tapnote.FloatLabelLayout
         android:id="@+id/floatNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,6 +78,6 @@
             android:hint="Note"
             android:inputType="textMultiLine|textCapSentences"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    </com.rj.tapnote.FloatLabelLayout>
+    </com.coltan.tapnote.FloatLabelLayout>
 
 </RelativeLayout>

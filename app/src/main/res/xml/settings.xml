@@ -3,7 +3,7 @@
 
     <PreferenceCategory android:title="@string/general">
 
-        <com.rj.tapnote.DeleteDatabasePreference
+        <com.coltan.tapnote.DeleteDatabasePreference
             android:defaultValue="Default Value"
             android:dialogLayout="@layout/dialog_delete_database"
             android:dialogMessage="Are you sure you want to delete all your note?"
@@ -16,9 +16,9 @@
 
     <PreferenceCategory android:title="@string/about">
 
-        <PreferenceScreen
+        <Preference
             android:summary="@string/prefs_about_version"
-            android:title="@string/prefs_about_title"></PreferenceScreen>
+            android:title="@string/prefs_about_title"></Preference>
 
     </PreferenceCategory>
 

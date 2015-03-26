@@ -5,11 +5,11 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.rj.tapnote"
+        applicationId "com.coltan.tapnote"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName "0.1 Beta"
     }
     buildTypes {
         release {

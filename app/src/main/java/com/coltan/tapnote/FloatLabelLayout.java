@@ -1,4 +1,4 @@
-package com.rj.tapnote;
+package com.coltan.tapnote;
 
 import android.content.Context;
 import android.content.res.TypedArray;

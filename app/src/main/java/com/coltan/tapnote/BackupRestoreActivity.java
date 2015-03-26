@@ -1,4 +1,4 @@
-package com.rj.tapnote;
+package com.coltan.tapnote;
 
 import android.os.Bundle;
 import android.os.Environment;

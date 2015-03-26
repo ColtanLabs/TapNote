@@ -1,4 +1,4 @@
-package com.rj.tapnote.db;
+package com.coltan.tapnote.db;
 
 
 public class Note {

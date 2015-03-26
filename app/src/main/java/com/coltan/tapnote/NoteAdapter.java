@@ -1,4 +1,4 @@
-package com.rj.tapnote;
+package com.coltan.tapnote;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -62,7 +62,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final String name = mDataset.get(position);
+        //final String name = mDataset.get(position);
         holder.txtHeader.setText(mDataset.get(position));
         holder.txtHeader.setOnClickListener(new View.OnClickListener() {
             @Override

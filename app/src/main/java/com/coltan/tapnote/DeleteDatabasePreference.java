@@ -1,4 +1,4 @@
-package com.rj.tapnote;
+package com.coltan.tapnote;
 
 import android.content.Context;
 import android.preference.DialogPreference;
@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 
-import com.rj.tapnote.db.DatabaseHandler;
+import com.coltan.tapnote.db.DatabaseHandler;
 
 public class DeleteDatabasePreference extends DialogPreference {
 

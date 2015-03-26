@@ -1,4 +1,4 @@
-package com.rj.tapnote;
+package com.coltan.tapnote;
 
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -9,8 +9,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.rj.tapnote.db.DatabaseHandler;
-import com.rj.tapnote.db.Note;
+import com.coltan.tapnote.db.DatabaseHandler;
+import com.coltan.tapnote.db.Note;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
