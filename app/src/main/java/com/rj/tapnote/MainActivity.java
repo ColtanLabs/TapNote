@@ -54,24 +54,7 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        DatabaseHandler db = new DatabaseHandler(this);
-        List<Note> notes = db.getAllNotes();
-        for (Note nt : notes) {
-            mId.add(String.valueOf(nt.getID()));
-            mHeader.add(nt.getTitle());
-            String note = nt.getNote();
-            mNote.add(note);
-            note = note.replace("\n", " ");
-            String cnote;
-            if (note.length() > 25) {
-                cnote = note.substring(0, 25);
-                cnote = cnote.concat("...");
-            } else {
-                cnote = note;
-            }
-            mSubHeader.add(cnote);
-            mTag.add(nt.getTag());
-        }
+        initData();
 
         mAdapter = new NoteAdapter(mHeader, mSubHeader, mTag);
         mRecyclerView.setAdapter(mAdapter);
@@ -93,6 +76,7 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
         int id = Integer.parseInt(mId.get(position));
         Intent i = new Intent(this, EditNoteActivity.class);
         i.putExtra("id", id);
+        i.putExtra("position", position);
         startActivity(i);
     }
 
@@ -132,5 +116,26 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initData() {
+        DatabaseHandler db = new DatabaseHandler(this);
+        List<Note> notes = db.getAllNotes();
+        for (Note nt : notes) {
+            mId.add(String.valueOf(nt.getID()));
+            mHeader.add(nt.getTitle());
+            String note = nt.getNote();
+            mNote.add(note);
+            note = note.replace("\n", " ");
+            String cnote;
+            if (note.length() > 25) {
+                cnote = note.substring(0, 25);
+                cnote = cnote.concat("...");
+            } else {
+                cnote = note;
+            }
+            mSubHeader.add(cnote);
+            mTag.add(nt.getTag());
+        }
     }
 }

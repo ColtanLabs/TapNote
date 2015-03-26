@@ -35,7 +35,6 @@ public class EditNoteActivity extends ActionBarActivity {
         setContentView(R.layout.activity_add_note);
 
         id = getIntent().getIntExtra("id", 1);
-        //Toast.makeText(this, "ID " + id, Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -97,6 +96,7 @@ public class EditNoteActivity extends ActionBarActivity {
         if (menuId == R.id.action_delete) {
             DatabaseHandler db = new DatabaseHandler(this);
             db.deleteNote(id);
+            NavUtils.navigateUpFromSameTask(this);
             finish();
         }
         if (menuId == R.id.action_copy) {
