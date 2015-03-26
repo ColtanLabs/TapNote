@@ -40,7 +40,7 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings">
-        <meta-data
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
