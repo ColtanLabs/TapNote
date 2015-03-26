@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/general">
+
+        <com.rj.tapnote.DeleteDatabasePreference
+            android:defaultValue="Default Value"
+            android:dialogLayout="@layout/dialog_delete_database"
+            android:dialogMessage="Are you sure you want to delete all your note?"
+            android:dialogTitle="@string/are_you_sure"
+            android:key="preference_key"
+            android:summary="@string/prefs_summ_delete_db"
+            android:title="@string/prefs_delete_db" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/about">
+
+        <PreferenceScreen
+            android:summary="@string/prefs_about_version"
+            android:title="@string/prefs_about_title"></PreferenceScreen>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

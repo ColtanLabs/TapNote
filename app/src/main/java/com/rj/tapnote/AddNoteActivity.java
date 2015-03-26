@@ -18,7 +18,7 @@ import java.util.Calendar;
 
 public class AddNoteActivity extends ActionBarActivity {
 
-    EditText etTitle, etTag, etNote;
+    private EditText etTitle, etTag, etNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

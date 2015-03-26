@@ -127,6 +127,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteAllNote() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NOTE);
+        db.close();
+    }
+
 //    // Getting contacts Count
 //    public int getContactsCount() {
 //        String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;

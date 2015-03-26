@@ -125,7 +125,7 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
+            startActivity(new Intent(this, SettingsActivity.class));
         }
         if (id == R.id.action_backup) {
             startActivity(new Intent(this, BackupRestoreActivity.class));
