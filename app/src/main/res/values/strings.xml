@@ -21,6 +21,6 @@
     <string name="delete_confirmation">You\'ll lose all your notes!</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="prefs_about_title">Tap Note</string>
-    <string name="prefs_about_version">Version 0.1 Beta</string>
+    <string name="prefs_about_version">Version 0.1.1 Beta</string>
 
 </resources>
