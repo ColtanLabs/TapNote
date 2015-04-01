@@ -80,7 +80,6 @@ public class AddNoteActivity extends ActionBarActivity {
             return true;
         }
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
             onBackPressed();
             return true;
         }
@@ -106,6 +105,7 @@ public class AddNoteActivity extends ActionBarActivity {
             addNote(title, note, tag, formattedDate);
             super.onBackPressed();
         }
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     private void addNote(String title, String note, String tag, String formattedDate) {
