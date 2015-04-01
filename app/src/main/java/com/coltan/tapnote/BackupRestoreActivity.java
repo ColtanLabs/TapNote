@@ -1,10 +1,12 @@
 package com.coltan.tapnote;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +15,12 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coltan.tapnote.db.DatabaseHandler;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 
@@ -41,8 +46,8 @@ public class BackupRestoreActivity extends ActionBarActivity {
         btnBackup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.d("Click", "Backup pressed");
-                exportDB();
+                BackupDatabaseTask bdt = new BackupDatabaseTask();
+                bdt.execute();
             }
         });
 
@@ -62,8 +67,8 @@ public class BackupRestoreActivity extends ActionBarActivity {
         btnRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.d("Click", "Restore pressed");
-                importDB();
+                RestoreDatabaseTask rdt = new RestoreDatabaseTask();
+                rdt.execute();
             }
         });
     }
@@ -96,54 +101,95 @@ public class BackupRestoreActivity extends ActionBarActivity {
         return new File(Environment.getExternalStorageDirectory(), "Tap Note");
     }
 
-    private void exportDB() {
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
-
-            if (sd.canWrite()) {
-                String currentDBPath = "//data//" + "com.rj.tapnote" + "//databases//" + "noteDB";
-                // create a File object for the parent directory
-                File tapNoteDirectory = new File("/sdcard/Tap Note/");
-                // have the object build the directory structure, if needed.
-                if (!tapNoteDirectory.exists()) {
-                    tapNoteDirectory.mkdirs();
-                }
-                String backupDBPath = "//Tap Note//" + "tapnotedb";
-                File currentDB = new File(data, currentDBPath);
-                File backupDB = new File(sd, backupDBPath);
-
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
-                Toast.makeText(this, "Backup Successful!", Toast.LENGTH_SHORT).show();
+    private class BackupDatabaseTask extends AsyncTask<Void, Void, String> {
+        protected String doInBackground(Void... args) {
+            String errorMsg;
+            File dbFile = getApplication().getDatabasePath(DatabaseHandler.DATABASE_NAME);
+            File exportDir = getBackupFolder();
+            if (!exportDir.exists()) {
+                exportDir.mkdirs();
             }
-        } catch (Exception e) {
-            Toast.makeText(this, "Backup Failed!", Toast.LENGTH_SHORT).show();
+            File file = new File(exportDir, dbFile.getName());
+            errorMsg = null;
+            try {
+                file.createNewFile();
+                FileInputStream in = new FileInputStream(dbFile);
+                FileOutputStream out = new FileOutputStream(file);
+                FileChannel inChannel = in.getChannel();
+                FileChannel outChannel = out.getChannel();
+                outChannel.transferFrom(inChannel, 0, inChannel.size());
+                try {
+                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                } finally {
+                    if (inChannel != null) {
+                        inChannel.close();
+                    }
+                    if (outChannel != null) {
+                        outChannel.close();
+                    }
+                }
+                in.close();
+                out.close();
+            } catch (IOException e) {
+                errorMsg = e.getMessage();
+            }
+            return errorMsg;
+        }
+
+        protected void onPostExecute(String errorMsg) {
+            if (errorMsg == null) {
+                Toast.makeText(BackupRestoreActivity.this, "Backup Successful!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(BackupRestoreActivity.this, "Backup Failed!", Toast.LENGTH_LONG).show();
+                Log.d("Error", errorMsg);
+            }
         }
     }
 
-    private void importDB() {
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
-            if (sd.canWrite()) {
-                String currentDBPath = "//data//" + "com.rj.tapnote" + "//databases//" + "noteDB";
-                String backupDBPath = "//Tap Note//" + "tapnotedb"; // From SD directory.
-                File backupDB = new File(data, currentDBPath);
-                File currentDB = new File(sd, backupDBPath);
-
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
-                Toast.makeText(getApplicationContext(), "Import Successful!", Toast.LENGTH_SHORT).show();
+    private class RestoreDatabaseTask extends AsyncTask<Void, Void, String> {
+        protected String doInBackground(Void... args) {
+            File dbBackupFile = new File(getBackupFolder(), "notedb");
+            if (!dbBackupFile.exists()) {
+                return getString(R.string.import_failed_nofile);
+            } else if (!dbBackupFile.canRead()) {
+                return getString(R.string.import_failed_noread);
             }
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Import Failed!", Toast.LENGTH_SHORT).show();
+            File dbFile = getApplication().getDatabasePath(DatabaseHandler.DATABASE_NAME);
+            getApplication().deleteDatabase(DatabaseHandler.DATABASE_NAME);
+
+            try {
+                dbFile.createNewFile();
+                FileInputStream in = new FileInputStream(dbBackupFile);
+                FileOutputStream out = new FileOutputStream(dbFile);
+                FileChannel inChannel = in.getChannel();
+                FileChannel outChannel = out.getChannel();
+                outChannel.transferFrom(inChannel, 0, inChannel.size());
+                try {
+                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                } finally {
+                    if (inChannel != null) {
+                        inChannel.close();
+                    }
+                    if (outChannel != null) {
+                        outChannel.close();
+                    }
+                }
+                in.close();
+                out.close();
+
+                return null;
+            } catch (IOException e) {
+                return e.getMessage();
+            }
+        }
+
+        protected void onPostExecute(String errorMsg) {
+            if (errorMsg == null) {
+                Toast.makeText(BackupRestoreActivity.this, "Restore Successful!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(BackupRestoreActivity.this, "Restore Failed!", Toast.LENGTH_LONG).show();
+                Log.d("Error", errorMsg);
+            }
         }
     }
 }
