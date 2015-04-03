@@ -64,15 +64,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         // - replace the contents of the view with that element
         //final String name = mDataset.get(position);
         holder.txtHeader.setText(mDataset.get(position));
-        holder.txtHeader.setOnClickListener(new View.OnClickListener() {
+        /*holder.txtHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //remove(name);
             }
-        });
+        });*/
 
         holder.txtFooter.setText(mSubHeader.get(position));
-        holder.txtTag.setText(mTag.get(position));
+        if (mTag.get(position).equals("")) {
+            holder.txtTag.setVisibility(View.INVISIBLE);
+        } else {
+            holder.txtTag.setText(mTag.get(position));
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
