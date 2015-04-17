@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/floatTag"
             android:layout_marginRight="16dp"
-            android:hint="Tag"
+            android:hint="Tag (optional)"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:nextFocusDown="@+id/noteContent"
