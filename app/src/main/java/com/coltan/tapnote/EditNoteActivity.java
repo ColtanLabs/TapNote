@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
@@ -28,6 +29,7 @@ public class EditNoteActivity extends ActionBarActivity {
     EditText etTitle, etTag, etNote;
     private int id;
     private Intent shareIntent;
+    String title, tag, note, formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,15 +119,22 @@ public class EditNoteActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        String title = etTitle.getText().toString();
-        String tag = etTag.getText().toString();
-        String note = etNote.getText().toString();
+        title = etTitle.getText().toString();
+        tag = etTag.getText().toString();
+        note = etNote.getText().toString();
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        String formattedDate = df.format(c.getTime());
+        formattedDate = df.format(c.getTime());
         if (title.isEmpty() || title.equals("")) {
             etTitle.setError("Please enter a title");
         } else {
+            UpdateTask ut = new UpdateTask();
+            ut.execute();
+        }
+    }
+
+    private class UpdateTask extends AsyncTask<Void, Void, String> {
+        protected String doInBackground(Void... args) {
             Note nt = new Note();
             nt.setID(id);
             nt.setTitle(title);
@@ -133,14 +142,21 @@ public class EditNoteActivity extends ActionBarActivity {
             nt.setNote(note);
             nt.setDate(formattedDate);
             Log.d("ID", String.valueOf(id));
-            DatabaseHandler db = new DatabaseHandler(this);
-
+            DatabaseHandler db = new DatabaseHandler(EditNoteActivity.this);
             int a = db.updateNote(nt);
             if (a == 1) {
-                Toast.makeText(this, "Successfully updated", Toast.LENGTH_SHORT).show();
-                finish();
+                return null;
             } else {
-                Toast.makeText(this, "Unable to update", Toast.LENGTH_SHORT).show();
+                return "Failed";
+            }
+        }
+
+        protected void onPostExecute(String errorMsg) {
+            if (errorMsg == null) {
+                Toast.makeText(EditNoteActivity.this, "Update Successful!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(EditNoteActivity.this, "Update Failed!", Toast.LENGTH_LONG).show();
+                Log.d("Error", errorMsg);
             }
         }
     }
