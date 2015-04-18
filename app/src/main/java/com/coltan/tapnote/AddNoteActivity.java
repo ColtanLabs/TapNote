@@ -1,12 +1,14 @@
 package com.coltan.tapnote;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -24,6 +26,7 @@ public class AddNoteActivity extends ActionBarActivity {
     private ShareActionProvider mShareActionProvider;
     private EditText etTitle, etTag, etNote;
     private Intent shareIntent;
+    String title, tag, note, formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +92,12 @@ public class AddNoteActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        String title = etTitle.getText().toString();
-        String tag = etTag.getText().toString();
-        String note = etNote.getText().toString();
+        title = etTitle.getText().toString();
+        tag = etTag.getText().toString();
+        note = etNote.getText().toString();
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        String formattedDate = df.format(c.getTime());
+        formattedDate = df.format(c.getTime());
         if (title.isEmpty() || title.equals("")) {
             if (note.isEmpty() || note.equals("")) {
                 super.onBackPressed();
@@ -102,16 +105,29 @@ public class AddNoteActivity extends ActionBarActivity {
                 etTitle.setError("Please enter a title");
             }
         } else {
-            addNote(title, note, tag, formattedDate);
+            //addNote(title, note, tag, formattedDate);
+            AddTask at = new AddTask();
+            at.execute();
             super.onBackPressed();
         }
         NavUtils.navigateUpFromSameTask(this);
     }
 
-    private void addNote(String title, String note, String tag, String formattedDate) {
-        DatabaseHandler db = new DatabaseHandler(this);
-        db.addNote(new Note(title, note, tag, formattedDate));
-        db.close();
-        Toast.makeText(this, "Successfully added note", Toast.LENGTH_SHORT).show();
+    private class AddTask extends AsyncTask<Void, Void, String> {
+        protected String doInBackground(Void... args) {
+            DatabaseHandler db = new DatabaseHandler(AddNoteActivity.this);
+            db.addNote(new Note(title, note, tag, formattedDate));
+            db.close();
+            return null;
+        }
+
+        protected void onPostExecute(String errorMsg) {
+            if (errorMsg == null) {
+                Toast.makeText(AddNoteActivity.this, "Added Successful!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(AddNoteActivity.this, "Added Failed!", Toast.LENGTH_LONG).show();
+                Log.d("Error", errorMsg);
+            }
+        }
     }
 }

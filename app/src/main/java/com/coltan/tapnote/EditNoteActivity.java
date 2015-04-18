@@ -144,6 +144,7 @@ public class EditNoteActivity extends ActionBarActivity {
             Log.d("ID", String.valueOf(id));
             DatabaseHandler db = new DatabaseHandler(EditNoteActivity.this);
             int a = db.updateNote(nt);
+            db.close();
             if (a == 1) {
                 return null;
             } else {
