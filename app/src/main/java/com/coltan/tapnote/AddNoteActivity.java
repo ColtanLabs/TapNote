@@ -102,13 +102,15 @@ public class AddNoteActivity extends ActionBarActivity {
             if (note.isEmpty() || note.equals("")) {
                 super.onBackPressed();
             } else {
-                etTitle.setError("Please enter a title");
+                title = "Untitled";
+                //etTitle.setError("Please enter a title");
             }
         } else {
             //addNote(title, note, tag, formattedDate);
             AddTask at = new AddTask();
             at.execute();
             super.onBackPressed();
+            finish();
         }
         NavUtils.navigateUpFromSameTask(this);
     }

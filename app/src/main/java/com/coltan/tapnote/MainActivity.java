@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity implements RecyclerItemClick
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, null));
         initData();
 
         mAdapter = new NoteAdapter(mHeader, mSubHeader, mTag);

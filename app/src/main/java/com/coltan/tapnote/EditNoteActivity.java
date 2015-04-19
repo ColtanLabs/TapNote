@@ -130,6 +130,7 @@ public class EditNoteActivity extends ActionBarActivity {
         } else {
             UpdateTask ut = new UpdateTask();
             ut.execute();
+            finish();
         }
     }
 
