@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,7 +23,7 @@ import com.coltan.tapnote.db.Note;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class EditNoteActivity extends ActionBarActivity {
+public class EditNoteActivity extends AppCompatActivity {
 
     private ShareActionProvider mShareActionProvider;
     EditText etTitle, etTag, etNote;
@@ -108,6 +108,7 @@ public class EditNoteActivity extends ActionBarActivity {
             ClipData clip = ClipData.newPlainText(etTitle.getText().toString(), etNote.getText().toString());
             // Set the clipboard's primary clip.
             clipboard.setPrimaryClip(clip);
+            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
         }
         if (menuId == R.id.action_share) {
             startActivity(Intent.createChooser(shareIntent, "Share via"));

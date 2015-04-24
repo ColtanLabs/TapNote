@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class AddNoteActivity extends ActionBarActivity {
+public class AddNoteActivity extends AppCompatActivity {
 
     private ShareActionProvider mShareActionProvider;
     private EditText etTitle, etTag, etNote;
