@@ -7,4 +7,11 @@
     <color name="colorRipple">#FF6F00</color>
     <color name="white">#FFFFFF</color>
     <color name="secondaryText">#727272</color>
+
+    <!-- AboutLibraries DEFAULT colors -->
+    <color name="about_libraries_card">#FAFAFA</color>
+    <color name="about_libraries_title_openSource">#212121</color>
+    <color name="about_libraries_text_openSource">#727272</color>
+    <color name="about_libraries_dividerDark_openSource">#AAA</color>
+    <color name="about_libraries_dividerLight_openSource">#DADADA</color>
 </resources>

@@ -16,9 +16,11 @@
 
     <PreferenceCategory android:title="@string/about">
 
-        <Preference
+        <PreferenceScreen
             android:summary="@string/prefs_about_version"
-            android:title="@string/prefs_about_title"></Preference>
+            android:title="@string/prefs_about_title">
+            <intent android:action=".AboutActivity" />
+        </PreferenceScreen>
 
     </PreferenceCategory>
 
