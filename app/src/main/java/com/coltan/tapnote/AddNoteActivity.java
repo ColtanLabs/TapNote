@@ -131,7 +131,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
         protected void onPostExecute(String errorMsg) {
             if (errorMsg == null) {
-                Toast.makeText(AddNoteActivity.this, "Added Successful!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddNoteActivity.this, "Added Successful!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(AddNoteActivity.this, "Added Failed!", Toast.LENGTH_LONG).show();
                 Log.d("Error", errorMsg);

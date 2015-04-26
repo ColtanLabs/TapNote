@@ -160,7 +160,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
         protected void onPostExecute(String errorMsg) {
             if (errorMsg == null) {
-                Toast.makeText(EditNoteActivity.this, "Update Successful!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(EditNoteActivity.this, "Update Successful!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(EditNoteActivity.this, "Update Failed!", Toast.LENGTH_LONG).show();
                 Log.d("Error", errorMsg);
