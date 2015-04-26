@@ -50,8 +50,11 @@ public class EditNoteActivity extends AppCompatActivity {
         DatabaseHandler db = new DatabaseHandler(this);
         Note an = db.getNote(id);
         etTitle.setText(an.getTitle());
+        etTitle.setSelection(etTitle.getText().length());
         etTag.setText(an.getTag());
+        etTag.setSelection(etTag.getText().length());
         etNote.setText(an.getNote());
+        etNote.setSelection(etNote.getText().length());
     }
 
 
@@ -92,14 +95,15 @@ public class EditNoteActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (menuId == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
             onBackPressed();
+            return true;
         }
         if (menuId == R.id.action_delete) {
             DatabaseHandler db = new DatabaseHandler(this);
             db.deleteNote(id);
             NavUtils.navigateUpFromSameTask(this);
             finish();
+            return true;
         }
         if (menuId == R.id.action_copy) {
             // Gets a handle to the clipboard service.
@@ -119,7 +123,6 @@ public class EditNoteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         title = etTitle.getText().toString();
         tag = etTag.getText().toString();
         note = etNote.getText().toString();
@@ -127,12 +130,13 @@ public class EditNoteActivity extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         formattedDate = df.format(c.getTime());
         if (title.isEmpty() || title.equals("")) {
-            etTitle.setError("Please enter a title");
-        } else {
-            UpdateTask ut = new UpdateTask();
-            ut.execute();
-            finish();
+            title = "Untitled";
         }
+        UpdateTask ut = new UpdateTask();
+        ut.execute();
+        super.onBackPressed();
+        NavUtils.navigateUpFromSameTask(this);
+        finish();
     }
 
     private class UpdateTask extends AsyncTask<Void, Void, String> {

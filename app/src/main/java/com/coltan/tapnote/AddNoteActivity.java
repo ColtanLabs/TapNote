@@ -101,18 +101,24 @@ public class AddNoteActivity extends AppCompatActivity {
         if (title.isEmpty() || title.equals("")) {
             if (note.isEmpty() || note.equals("")) {
                 super.onBackPressed();
+                NavUtils.navigateUpFromSameTask(this);
+                finish();
             } else {
                 title = "Untitled";
-                //etTitle.setError("Please enter a title");
+                AddTask at = new AddTask();
+                at.execute();
+                super.onBackPressed();
+                NavUtils.navigateUpFromSameTask(this);
+                finish();
             }
         } else {
-            //addNote(title, note, tag, formattedDate);
             AddTask at = new AddTask();
             at.execute();
             super.onBackPressed();
+            NavUtils.navigateUpFromSameTask(this);
             finish();
         }
-        NavUtils.navigateUpFromSameTask(this);
+
     }
 
     private class AddTask extends AsyncTask<Void, Void, String> {
