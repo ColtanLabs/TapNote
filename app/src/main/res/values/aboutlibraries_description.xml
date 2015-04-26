@@ -19,7 +19,9 @@
     <string name="aboutLibraries_description_special3_name">Changelog</string>
     <string name="aboutLibraries_description_special3_text">
         <![CDATA[
+        <i>Version 0.2.3</i><br />
+        - Bug fixes<br />
         <i>Version 0.2.2</i><br />
-        - Material design improvement<br />]]>
+        - Material design improvements<br />]]>
     </string>
 </resources>

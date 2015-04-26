@@ -21,7 +21,7 @@
     <string name="delete_confirmation">You\'ll lose all your notes!</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="prefs_about_title">Tap Note</string>
-    <string name="prefs_about_version">Version 0.2.2 Beta</string>
+    <string name="prefs_about_version">Version 0.2.3 Beta</string>
 
     <string name="import_failed_nofile">There is no readable backup file.</string>
     <string name="import_failed_noread">The backup file is not readable.</string>
