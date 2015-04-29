@@ -77,7 +77,7 @@
             android:layout_below="@+id/floatNote"
             android:hint="Note"
             android:inputType="textMultiLine|textCapSentences"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
     </com.coltan.tapnote.FloatLabelLayout>
 
 </RelativeLayout>
