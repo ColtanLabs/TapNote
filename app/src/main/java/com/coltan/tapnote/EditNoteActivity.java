@@ -3,12 +3,15 @@ package com.coltan.tapnote;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -99,10 +102,21 @@ public class EditNoteActivity extends AppCompatActivity {
             return true;
         }
         if (menuId == R.id.action_delete) {
-            DatabaseHandler db = new DatabaseHandler(this);
-            db.deleteNote(id);
-            NavUtils.navigateUpFromSameTask(this);
-            finish();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final Context context = this;
+            builder.setMessage("Delete this note?");
+            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int did) {
+                    DatabaseHandler db = new DatabaseHandler(context);
+                    db.deleteNote(id);
+                    NavUtils.navigateUpFromSameTask(EditNoteActivity.this);
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Cancel", null);
+            AppCompatDialog dialog = builder.create();
+            dialog.show();
+
             return true;
         }
         if (menuId == R.id.action_copy) {
