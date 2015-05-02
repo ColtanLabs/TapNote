@@ -34,6 +34,8 @@ public class EditNoteActivity extends AppCompatActivity {
     private Intent shareIntent;
     String title, tag, note, formattedDate;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,7 +179,7 @@ public class EditNoteActivity extends AppCompatActivity {
                 //Toast.makeText(EditNoteActivity.this, "Update Successful!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(EditNoteActivity.this, "Update Failed!", Toast.LENGTH_LONG).show();
-                Log.d("Error", errorMsg);
+                //Log.d("Error", errorMsg);
             }
         }
     }

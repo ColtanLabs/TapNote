@@ -23,6 +23,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerItemClickListener.OnItemClickListener {
 
+    private Context context;
     private Toolbar toolbar;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     private ArrayList<String> mSubHeader = new ArrayList<>();
     private ArrayList<String> mTag = new ArrayList<>();
     private ArrayList<String> mNote = new ArrayList<>();
+
+    public MainActivity() {
+        context = MainActivity.this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     }
 
     private void initData() {
-        DatabaseHandler db = new DatabaseHandler(this);
+        DatabaseHandler db = new DatabaseHandler(context);
         List<Note> notes = db.getAllNotes();
         for (Note nt : notes) {
             mId.add(String.valueOf(nt.getID()));
