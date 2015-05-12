@@ -14,6 +14,7 @@
     <string name="general">General</string>
     <string name="delete">Delete</string>
     <string name="about">About</string>
+    <string name="labels">Labels</string>
 
     <!--Preference strings-->
     <string name="prefs_delete_db">Delete Database</string>
