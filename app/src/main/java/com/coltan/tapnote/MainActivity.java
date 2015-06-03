@@ -54,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
                         switch (identifier) {
                             case 0:
                                 onHomeSelected();
+                                toolbar.setTitle("Tap Note");
                                 break;
                             case 1:
                                 onStarredSelected();
+                                toolbar.setTitle("Starred");
                                 break;
                             case 23:
                                 onBackupRestoreSelected();
