@@ -32,8 +32,8 @@ public class EditNoteActivity extends AppCompatActivity {
     EditText etTitle, etTag, etNote;
     private int id;
     private Intent shareIntent;
-    String title, tag, note, formattedDate;
-
+    String title, tag, note, formattedDate, mStar;
+    String starred = "0";
 
 
     @Override
@@ -60,6 +60,8 @@ public class EditNoteActivity extends AppCompatActivity {
         etTag.setSelection(etTag.getText().length());
         etNote.setText(an.getNote());
         etNote.setSelection(etNote.getText().length());
+        starred = an.getStarred();
+        //Log.d("Info", starred);
     }
 
 
@@ -134,7 +136,33 @@ public class EditNoteActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(shareIntent, "Share via"));
         }
 
+        if (menuId == R.id.action_star) {
+            if (starred.equals("0")) {
+                //change your view and sort it by Alphabet
+                item.setIcon(R.drawable.ic_star_white_24dp);
+                starred = "1";
+                Log.d("Info", "Starred = " + starred);
+            } else {
+                item.setIcon(R.drawable.ic_star_border_white_24dp);
+                starred = "0";
+                Log.d("Info", "Starred = " + starred);
+            }
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (starred == null) {
+            starred = "0";
+        }
+        if (starred.equals("0")) {
+            Log.d("Info", "Starred = 0");
+        } else {
+            (menu.findItem(R.id.action_star)).setIcon(R.drawable.ic_star_white_24dp);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -163,6 +191,7 @@ public class EditNoteActivity extends AppCompatActivity {
             nt.setTag(tag);
             nt.setNote(note);
             nt.setDate(formattedDate);
+            nt.setStarred(starred);
             Log.d("ID", String.valueOf(id));
             DatabaseHandler db = new DatabaseHandler(EditNoteActivity.this);
             int a = db.updateNote(nt);

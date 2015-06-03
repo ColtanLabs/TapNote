@@ -8,6 +8,7 @@ public class Note {
     String _note;
     String _tag;
     String _date;
+    String _starred;
 
     // Empty constructor
     public Note() {
@@ -15,11 +16,12 @@ public class Note {
     }
 
     // constructor
-    public Note(String title, String note, String tag, String date) {
+    public Note(String title, String note, String tag, String date, String starred) {
         this._title = title;
         this._note = note;
         this._tag = tag;
         this._date = date;
+        this._starred = starred;
     }
 
     // getting ID
@@ -70,5 +72,15 @@ public class Note {
     // setting date
     public void setDate(String date) {
         this._date = date;
+    }
+
+    // getting date
+    public String getStarred() {
+        return this._starred;
+    }
+
+    // setting date
+    public void setStarred(String starred) {
+        this._starred = starred;
     }
 }

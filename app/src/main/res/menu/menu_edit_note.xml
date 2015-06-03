@@ -1,8 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_star"
+        android:icon="@drawable/ic_star_border_white_24dp"
+        android:title="Star"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_share"
-        android:icon="@mipmap/ic_action_share"
+        android:icon="@drawable/ic_share_white_24dp"
         android:title="Share"
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         app:showAsAction="always" />
@@ -11,11 +17,11 @@
         android:id="@+id/action_copy"
         android:icon="@mipmap/ic_action_content_content_copy"
         android:title="Copy"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_delete"
         android:icon="@mipmap/ic_action_delete"
         android:title="Delete"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

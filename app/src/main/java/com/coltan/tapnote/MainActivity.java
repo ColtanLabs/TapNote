@@ -11,16 +11,16 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private Drawer.Result result = null;
+    private Drawer result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,30 +35,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createDrawer() {
-        result = new Drawer()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withDisplayBelowToolbar(true)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_action_home).withIdentifier(0),
-                        new SectionDrawerItem().withName(R.string.labels),
-                        new PrimaryDrawerItem().withName("Personal").withIcon(R.drawable.ic_action_label).withIdentifier(5),
-                        new PrimaryDrawerItem().withName("Work").withIcon(R.drawable.ic_action_label).withIdentifier(6),
+                        new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_home_black_24dp).withIdentifier(0),
+                        new PrimaryDrawerItem().withName("Starred").withIcon(R.drawable.ic_star_black_24dp).withIdentifier(1),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName("Backup/Restore").withIdentifier(23),
                         new SecondaryDrawerItem().withName("Settings").withIdentifier(24)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         int identifier = drawerItem.getIdentifier();
                         switch (identifier) {
                             case 0:
                                 onHomeSelected();
                                 break;
-                            case 5:
-                                onPersonalSelected();
+                            case 1:
+                                onStarredSelected();
                                 break;
                             case 23:
                                 onBackupRestoreSelected();
@@ -67,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                                 onSettingsSelected();
                                 break;
                         }
+                        return false;
                     }
                 })
                 .withSelectedItem(0)
@@ -87,8 +86,12 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    private void onPersonalSelected() {
-
+    private void onStarredSelected() {
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment newFragment = new StarredFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content, newFragment);
+        ft.commit();
     }
 
     private void onBackupRestoreSelected() {

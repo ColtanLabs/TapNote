@@ -27,6 +27,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private EditText etTitle, etTag, etNote;
     private Intent shareIntent;
     String title, tag, note, formattedDate;
+    String starred;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +80,25 @@ public class AddNoteActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
+        }
+
+        if (id == R.id.action_star) {
+            if (starred.equals(0)) {
+                //change your view and sort it by Alphabet
+                item.setIcon(R.drawable.ic_star_white_24dp);
+                starred = "1";
+                Log.d("Info", "Starred = " + starred);
+            } else {
+                item.setIcon(R.drawable.ic_star_border_white_24dp);
+                starred = "0";
+                Log.d("Info", "Starred = " + starred);
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -124,7 +138,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private class AddTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... args) {
             DatabaseHandler db = new DatabaseHandler(AddNoteActivity.this);
-            db.addNote(new Note(title, note, tag, formattedDate));
+            db.addNote(new Note(title, note, tag, formattedDate, starred));
             db.close();
             return null;
         }
