@@ -63,6 +63,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_NOTE, note.getNote());
         values.put(KEY_TAG, note.getTag());
+        values.put(KEY_STARRED, note.getStarred());
         db.insert(TABLE_NOTE, null, values);
         db.close();
     }

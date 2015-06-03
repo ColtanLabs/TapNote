@@ -27,7 +27,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private EditText etTitle, etTag, etNote;
     private Intent shareIntent;
     String title, tag, note, formattedDate;
-    String starred;
+    String starred = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class AddNoteActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_star) {
-            if (starred.equals(0)) {
+            if (starred.equals("0")) {
                 //change your view and sort it by Alphabet
                 item.setIcon(R.drawable.ic_star_white_24dp);
                 starred = "1";
