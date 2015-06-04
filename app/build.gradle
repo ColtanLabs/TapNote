@@ -37,4 +37,5 @@ dependencies {
     compile('com.mikepenz:materialdrawer:3.0.5@aar') {
         transitive = true
     }
+    compile 'com.android.support:design:22.2.0'
 }
