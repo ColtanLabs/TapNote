@@ -13,7 +13,6 @@
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         android:gravity="top"
-        android:minHeight="?android:attr/actionBarSize"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 

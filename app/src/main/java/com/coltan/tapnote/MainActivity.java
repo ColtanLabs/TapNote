@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -19,7 +21,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    Toolbar toolbar;
     private Drawer result = null;
 
     @Override
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
@@ -38,14 +40,13 @@ public class MainActivity extends AppCompatActivity {
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withDisplayBelowToolbar(true)
-                .withActionBarDrawerToggleAnimated(true)
+                .withTranslucentStatusBar(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_home_black_24dp).withIdentifier(0),
-                        new PrimaryDrawerItem().withName("Starred").withIcon(R.drawable.ic_star_black_24dp).withIdentifier(1),
+                        new PrimaryDrawerItem().withName("Home").withIcon(FontAwesome.Icon.faw_home).withIdentifier(0),
+                        new PrimaryDrawerItem().withName("Starred").withIcon(FontAwesome.Icon.faw_star).withIdentifier(1),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("Backup/Restore").withIdentifier(23),
-                        new SecondaryDrawerItem().withName("Settings").withIdentifier(24)
+                        new SecondaryDrawerItem().withName("Backup/Restore").withIcon(GoogleMaterial.Icon.gmd_settings_backup_restore).withIdentifier(23),
+                        new SecondaryDrawerItem().withName("Settings").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(24)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -70,14 +71,9 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .withSelectedItem(0)
                 .build();
+        result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
         result.setSelectionByIdentifier(0);
-        //result.openDrawer();
-        //result.closeDrawer();
-        //result.isDrawerOpen();
-        //result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
-        //result.addItem(..);
     }
 
     private void onHomeSelected() {
