@@ -9,7 +9,7 @@
             android:dialogMessage="Are you sure you want to delete all your note?"
             android:dialogTitle="@string/are_you_sure"
             android:key="preference_key"
-            android:summary="@string/prefs_summ_delete_db"
+            android:summary="@string/prefs_summary_delete_db"
             android:title="@string/prefs_delete_db" />
 
     </PreferenceCategory>

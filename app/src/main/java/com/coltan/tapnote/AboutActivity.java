@@ -45,7 +45,7 @@ public class AboutActivity extends AppCompatActivity {
         });
     }
 
-    public static String getAppVersionName(Context context) {
+    private static String getAppVersionName(Context context) {
         String res = "0.0.0.0";
         try {
             res = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
@@ -56,7 +56,7 @@ public class AboutActivity extends AppCompatActivity {
         return res;
     }
 
-    public static int getAppVersionCode(Context context) {
+    private static int getAppVersionCode(Context context) {
         int res = 0;
         try {
             res = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;

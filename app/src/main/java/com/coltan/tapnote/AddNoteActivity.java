@@ -23,11 +23,12 @@ import java.util.Calendar;
 
 public class AddNoteActivity extends AppCompatActivity {
 
-    private ShareActionProvider mShareActionProvider;
     private EditText etTitle, etTag, etNote;
-    private Intent shareIntent;
-    String title, tag, note, formattedDate;
-    String starred = "0";
+    private String title;
+    private String tag;
+    private String note;
+    private String formattedDate;
+    private String starred = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +53,10 @@ public class AddNoteActivity extends AppCompatActivity {
         // Locate MenuItem with ShareActionProvider
         MenuItem item = menu.findItem(R.id.action_share);
         // Fetch and store ShareActionProvider
-        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+        ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         // Attach an intent to this ShareActionProvider.  You can update this at any time,
         // like when the user selects a new piece of data they might like to share.
-        shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
         mShareActionProvider.setShareIntent(setMyShareIntent(shareIntent));
         return true;
     }

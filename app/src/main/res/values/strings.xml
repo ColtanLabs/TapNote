@@ -15,10 +15,13 @@
     <string name="title">Title</string>
     <string name="tag">Tag</string>
     <string name="note">Note</string>
+    <string name="star">Star</string>
+    <string name="share">Share</string>
+    <string name="copy">Copy</string>
 
     <!--Preference strings-->
     <string name="prefs_delete_db">Delete Database</string>
-    <string name="prefs_summ_delete_db">Remove all notes from your device</string>
+    <string name="prefs_summary_delete_db">Remove all notes from your device</string>
     <string name="delete_confirmation">You\'ll lose all your notes!</string>
     <string name="are_you_sure">Are you sure?</string>
 

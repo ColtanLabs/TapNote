@@ -85,7 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Getting All notes
     public List<Note> getAllNotes() {
-        List<Note> noteList = new ArrayList<Note>();
+        List<Note> noteList = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_NOTE;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -138,7 +138,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Getting all starred notes
     public List<Note> getAllStarredNotes() {
-        List<Note> noteList = new ArrayList<Note>();
+        List<Note> noteList = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_NOTE + " WHERE " + KEY_STARRED + "=1";
         SQLiteDatabase db = this.getWritableDatabase();

@@ -12,7 +12,7 @@ Simple note app with ease of copy the note to the clipboard using a tap touch.
 * Material animation
 
 
-# Functionalites needs to be in future #
+# Features needs to be in future #
 
 * Online backup:  Sign in with Google account and sync the data with online storage.
 

@@ -23,9 +23,6 @@ import java.util.List;
 
 public class StarredFragment extends Fragment implements RecyclerItemClickListener.OnItemClickListener {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<String> mId = new ArrayList<>();
     private ArrayList<String> mHeader = new ArrayList<>();
     private ArrayList<String> mSubHeader = new ArrayList<>();
@@ -41,7 +38,7 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_starred, container, false);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
+        RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
         fab.show();
@@ -51,12 +48,12 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
         initData();
 
-        mAdapter = new NoteAdapter(mHeader, mSubHeader, mTag);
+        RecyclerView.Adapter mAdapter = new NoteAdapter(mHeader, mSubHeader, mTag);
         mRecyclerView.setAdapter(mAdapter);
 
         fab.setOnClickListener(new View.OnClickListener() {

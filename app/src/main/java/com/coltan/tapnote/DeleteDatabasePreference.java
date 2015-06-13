@@ -10,7 +10,7 @@ import com.coltan.tapnote.db.DatabaseHandler;
 
 public class DeleteDatabasePreference extends DialogPreference {
 
-    Context mContext;
+    private Context mContext;
 
     public DeleteDatabasePreference(Context context, AttributeSet attrs) {
         super(context, attrs);

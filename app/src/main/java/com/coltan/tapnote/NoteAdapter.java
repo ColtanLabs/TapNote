@@ -53,8 +53,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        ViewHolder vHolder = new ViewHolder(v);
+        return vHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
