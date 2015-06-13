@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.coltan.tapnote.HomeFragment">
+    tools:context="com.coltan.tapnote.StarredFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
@@ -16,9 +16,9 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:layout_gravity="bottom|end"
-        android:src="@mipmap/ic_action_content_add"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_content_add"
         fab:fab_colorNormal="@color/colorAccent"
         fab:fab_colorPressed="@color/colorAccentPressed"
         fab:fab_colorRipple="@color/colorRipple" />

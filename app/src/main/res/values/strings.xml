@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">Tap Note</string>
-    <string name="action_settings">Settings</string>
-    <string name="note_head">Note Title</string>
-    <string name="title_activity_add_note">Add Note</string>
-    <string name="title_activity_view_note">Note</string>
     <string name="backup_restore">Backup/Restore</string>
     <string name="backup_text">Backup will export all your notes into the folder below.</string>
     <string name="backup_folder">Backup folder:</string>
@@ -14,7 +10,9 @@
     <string name="general">General</string>
     <string name="delete">Delete</string>
     <string name="about">About</string>
-    <string name="labels">Labels</string>
+    <string name="title">Title</string>
+    <string name="tag">Tag</string>
+    <string name="note">Note</string>
 
     <!--Preference strings-->
     <string name="prefs_delete_db">Delete Database</string>
