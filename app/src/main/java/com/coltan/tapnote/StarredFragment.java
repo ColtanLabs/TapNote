@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,6 @@ import android.widget.Toast;
 
 import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
-import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +39,6 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_starred, container, false);
         RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
-        fab.attachToRecyclerView(mRecyclerView);
-        fab.show();
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -56,6 +53,7 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
         RecyclerView.Adapter mAdapter = new NoteAdapter(mHeader, mSubHeader, mTag);
         mRecyclerView.setAdapter(mAdapter);
 
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
