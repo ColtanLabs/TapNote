@@ -14,7 +14,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/about">
+    <!--<PreferenceCategory android:title="@string/about">
 
         <PreferenceScreen
             android:summary="@string/prefs_about_version"
@@ -22,6 +22,6 @@
             <intent android:action=".AboutActivity" />
         </PreferenceScreen>
 
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 
 </PreferenceScreen>

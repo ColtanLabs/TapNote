@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Starred").withIcon(FontAwesome.Icon.faw_star).withIdentifier(1),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName("Backup/Restore").withIcon(GoogleMaterial.Icon.gmd_settings_backup_restore).withIdentifier(23),
-                        new SecondaryDrawerItem().withName("Settings").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(24)
+                        new SecondaryDrawerItem().withName("Settings").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(24),
+                        new SecondaryDrawerItem().withName("About").withIcon(FontAwesome.Icon.faw_info).withIdentifier(25)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
                             case 24:
                                 onSettingsSelected();
                                 break;
+                            case 25:
+                                onAboutSelected();
+                                break;
                         }
                         return false;
                     }
@@ -74,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
         result.setSelectionByIdentifier(0);
+    }
+
+    private void onAboutSelected() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 
     private void onHomeSelected() {
