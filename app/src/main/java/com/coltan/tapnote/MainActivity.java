@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -42,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home").withIcon(FontAwesome.Icon.faw_home).withIdentifier(0),
-                        new PrimaryDrawerItem().withName("Starred").withIcon(FontAwesome.Icon.faw_star).withIdentifier(1),
+                        new PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(FontAwesome.Icon.faw_home).withIdentifier(0),
+                        new PrimaryDrawerItem().withName(getString(R.string.starred)).withIcon(FontAwesome.Icon.faw_star).withIdentifier(1),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("Backup/Restore").withIcon(GoogleMaterial.Icon.gmd_settings_backup_restore).withIdentifier(23),
-                        new SecondaryDrawerItem().withName("Settings").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(24),
-                        new SecondaryDrawerItem().withName("About").withIcon(FontAwesome.Icon.faw_info).withIdentifier(25)
+                        new SecondaryDrawerItem().withName(getString(R.string.backup_restore)).withIcon(GoogleMaterial.Icon.gmd_settings_backup_restore).withIdentifier(23),
+                        new SecondaryDrawerItem().withName(getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(24),
+                        new SecondaryDrawerItem().withName(getString(R.string.about)).withIcon(FontAwesome.Icon.faw_info).withIdentifier(25)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -56,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
                         switch (identifier) {
                             case 0:
                                 onHomeSelected();
-                                toolbar.setTitle("Tap Note");
+                                toolbar.setTitle(getString(R.string.app_name));
                                 break;
                             case 1:
                                 onStarredSelected();
-                                toolbar.setTitle("Starred");
+                                toolbar.setTitle(getString(R.string.starred));
                                 break;
                             case 23:
                                 onBackupRestoreSelected();
