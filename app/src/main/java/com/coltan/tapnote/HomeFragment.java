@@ -7,13 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
@@ -59,7 +59,6 @@ public class HomeFragment extends Fragment implements RecyclerItemClickListener.
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), AddNoteActivity.class));
-                //Snackbar.make(v, "Here's a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -71,7 +70,6 @@ public class HomeFragment extends Fragment implements RecyclerItemClickListener.
     @Override
     public void onItemClick(View childView, int position) {
         // Do something when an item is clicked.
-        //Toast.makeText(this, "Single tap " + position, Toast.LENGTH_SHORT).show();
         int id = Integer.parseInt(mId.get(position));
         Intent i = new Intent(getActivity(), EditNoteActivity.class);
         i.putExtra("id", id);
@@ -89,7 +87,7 @@ public class HomeFragment extends Fragment implements RecyclerItemClickListener.
         ClipData clip = ClipData.newPlainText(mHeader.get(position), mNote.get(position));
         // Set the clipboard's primary clip.
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(getActivity(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
+        Snackbar.make(childView, "Copied to clipboard", Snackbar.LENGTH_SHORT).show();
     }
 
     private void initData() {

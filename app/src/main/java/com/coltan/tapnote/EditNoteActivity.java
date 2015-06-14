@@ -68,7 +68,6 @@ public class EditNoteActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_edit_note, menu);
-
         // Locate MenuItem with ShareActionProvider
         MenuItem item = menu.findItem(R.id.action_share);
         // Fetch and store ShareActionProvider
@@ -84,11 +83,9 @@ public class EditNoteActivity extends AppCompatActivity {
     private Intent setMyShareIntent(Intent shareIntent) {
         shareIntent.setType("text/plain");
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-
         // Add data to the intent, the receiving app will decide what to do with it.
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, etTitle.getText().toString());
         shareIntent.putExtra(Intent.EXTRA_TEXT, etNote.getText().toString());
-
         return shareIntent;
     }
 
@@ -99,7 +96,6 @@ public class EditNoteActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int menuId = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (menuId == android.R.id.home) {
             onBackPressed();
             return true;
@@ -157,7 +153,7 @@ public class EditNoteActivity extends AppCompatActivity {
             starred = "0";
         }
         if (starred.equals("0")) {
-            Log.d("Info", "Starred = 0");
+            //Log.d("Info", "Starred = 0");
         } else {
             (menu.findItem(R.id.action_star)).setIcon(R.drawable.ic_star_white_24dp);
         }
@@ -207,7 +203,6 @@ public class EditNoteActivity extends AppCompatActivity {
                 //Toast.makeText(EditNoteActivity.this, "Update Successful!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(EditNoteActivity.this, "Update Failed!", Toast.LENGTH_LONG).show();
-                //Log.d("Error", errorMsg);
             }
         }
     }

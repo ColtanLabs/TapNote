@@ -80,10 +80,6 @@ public class AddNoteActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
@@ -149,7 +145,7 @@ public class AddNoteActivity extends AppCompatActivity {
                 //Toast.makeText(AddNoteActivity.this, "Added Successful!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(AddNoteActivity.this, "Added Failed!", Toast.LENGTH_LONG).show();
-                Log.d("Error", errorMsg);
+                //Log.d("Error", errorMsg);
             }
         }
     }
