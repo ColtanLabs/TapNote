@@ -97,6 +97,12 @@ public class BackupRestoreActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
+    }
+
     private File getBackupFolder() {
         return new File(Environment.getExternalStorageDirectory(), "Tap Note");
     }

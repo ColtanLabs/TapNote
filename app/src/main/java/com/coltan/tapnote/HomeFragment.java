@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment implements RecyclerItemClickListener.
         i.putExtra("id", id);
         i.putExtra("position", position);
         startActivity(i);
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
     }
 
     @Override

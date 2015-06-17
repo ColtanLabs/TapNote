@@ -174,6 +174,7 @@ public class EditNoteActivity extends AppCompatActivity {
         UpdateTask ut = new UpdateTask();
         ut.execute();
         super.onBackPressed();
+        overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
         NavUtils.navigateUpFromSameTask(this);
         finish();
     }
