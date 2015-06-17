@@ -4,6 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/noResults"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_search" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lines="2"
+            android:text="@string/search_noresults" />
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
@@ -19,6 +40,7 @@
         android:layout_margin="16dp"
         android:elevation="4dp"
         android:src="@drawable/ic_action_content_add"
+        app:borderWidth="0dp"
         app:layout_behavior="com.coltan.tapnote.ScrollAwareFABBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>
