@@ -23,8 +23,8 @@
 
     <style name="NoteAppearance">
         <item name="colorControlNormal">@android:color/transparent</item>
-        <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorControlActivated">@android:color/transparent</item>
+        <item name="android:textCursorDrawable">@drawable/color_cursor</item>
     </style>
 
     <style name="note_head">

@@ -20,14 +20,16 @@
         </activity>
         <activity
             android:name=".AddNoteActivity"
-            android:label="">
+            android:label=""
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".EditNoteActivity"
-            android:label="">
+            android:label=""
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

@@ -1,33 +1,95 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.coltan.tapnote.AddNote">
 
     <include
-        android:id="@+id/tool"
-        layout="@layout/app_bar_add_note" />
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/floatNote"
+    <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tool"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar">
 
-        <EditText
-            android:id="@+id/noteContent"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/floatNote"
-            android:hint="@string/note"
-            android:inputType="textMultiLine|textCapSentences"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:theme="@style/NoteAppearance"
-            app:layout_scrollFlags="scroll|enterAlways" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/floatTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/app_bar"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:elevation="4dp">
+
+                <EditText
+                    android:id="@+id/editTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/floatTitle"
+                    android:hint="@string/title"
+                    android:inputType="textCapSentences"
+                    android:nextFocusDown="@+id/noteContent"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:theme="@style/NoteAppearance" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/floatTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/floatTitle"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:elevation="4dp">
+
+                <EditText
+                    android:id="@+id/editTag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/floatTag"
+                    android:hint="@string/tag"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/noteContent"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:theme="@style/NoteAppearance" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/floatNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/floatTag"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <EditText
+                    android:id="@+id/noteContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/floatNote"
+                    android:hint="@string/note"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:theme="@style/NoteAppearance" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
