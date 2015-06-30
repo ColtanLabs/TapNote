@@ -24,6 +24,13 @@ public class Note {
         this._starred = starred;
     }
 
+    public Note(String id, String title, String note, String tag) {
+        this._id = Integer.valueOf(id);
+        this._title = title;
+        this._note = note;
+        this._tag = tag;
+    }
+
     // getting ID
     public int getID() {
         return this._id;

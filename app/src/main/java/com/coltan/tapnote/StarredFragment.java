@@ -1,13 +1,10 @@
 package com.coltan.tapnote;
 
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,14 +25,15 @@ import com.coltan.tapnote.db.Note;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StarredFragment extends Fragment implements RecyclerItemClickListener.OnItemClickListener, SearchView.OnQueryTextListener {
+public class StarredFragment extends Fragment implements SearchView.OnQueryTextListener {
 
-    private ArrayList<String> mId = new ArrayList<>();
-    private ArrayList<String> mHeader = new ArrayList<>();
-    private ArrayList<String> mSubHeader = new ArrayList<>();
-    private ArrayList<String> mTag = new ArrayList<>();
+    private List<String> mId = new ArrayList<>();
+    private List<String> mHeader = new ArrayList<>();
+    private List<String> mSubHeader = new ArrayList<>();
+    private List<String> mTag = new ArrayList<>();
     private ArrayList<String> mNote = new ArrayList<>();
 
+    private Context context;
     private RecyclerView mRecyclerView;
     private MenuItem searchItem;
     private SearchView searchView;
@@ -49,6 +47,7 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        context = getActivity();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_starred, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
@@ -64,7 +63,7 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
         initData();
 
-        RecyclerView.Adapter mAdapter = new NoteAdapter(mHeader, mSubHeader, mTag, 1);
+        RecyclerView.Adapter mAdapter = new NoteAdapter(createList(mId, mHeader, mSubHeader, mTag), 1, context);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
@@ -75,12 +74,12 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
             }
         });
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), this));
+        //mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), this));
 
         return v;
     }
 
-    @Override
+    /*@Override
     public void onItemClick(View childView, int position) {
         // Do something when an item is clicked.
         int id = Integer.parseInt(mId.get(position));
@@ -97,7 +96,7 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
         ClipData clip = ClipData.newPlainText(mHeader.get(position), mNote.get(position));
         clipboard.setPrimaryClip(clip);
         Snackbar.make(childView, "Copied to clipboard", Snackbar.LENGTH_SHORT).show();
-    }
+    }*/
 
     private void initData() {
         DatabaseHandler db = new DatabaseHandler(getActivity());
@@ -175,5 +174,15 @@ public class StarredFragment extends Fragment implements RecyclerItemClickListen
                 return false;
             }
         });
+    }
+
+    private List<Note> createList(List<String> id, List<String> title, List<String> note, List<String> tag) {
+        List<Note> res = new ArrayList<Note>();
+        for (int i = 0; i < id.size(); i++) {
+            Note noteInfo = new Note(id.get(i), title.get(i), note.get(i), tag.get(i));
+            res.add(noteInfo);
+        }
+
+        return res;
     }
 }
