@@ -1,7 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.coltan.tapnote.AddNote">
 
     <include
@@ -17,29 +19,25 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/app_bar">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/floatTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/app_bar"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
-                android:elevation="4dp">
+                android:layout_marginTop="16dp">
 
                 <EditText
                     android:id="@+id/editTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/floatTitle"
                     android:hint="@string/title"
                     android:inputType="textCapSentences"
                     android:nextFocusDown="@+id/noteContent"
@@ -52,18 +50,15 @@
                 android:id="@+id/floatTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/floatTitle"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:elevation="4dp">
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/editTag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/floatTag"
                     android:hint="@string/tag"
                     android:inputType="text"
                     android:nextFocusDown="@+id/noteContent"
@@ -76,7 +71,6 @@
                 android:id="@+id/floatNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/floatTag"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp">
 
@@ -84,7 +78,6 @@
                     android:id="@+id/noteContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/floatNote"
                     android:hint="@string/note"
                     android:inputType="textMultiLine|textCapSentences"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -92,4 +85,4 @@
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

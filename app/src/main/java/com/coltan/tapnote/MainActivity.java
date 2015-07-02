@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withTranslucentStatusBar(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(FontAwesome.Icon.faw_home).withIdentifier(0),
                         new PrimaryDrawerItem().withName(getString(R.string.starred)).withIcon(FontAwesome.Icon.faw_star).withIdentifier(1),
