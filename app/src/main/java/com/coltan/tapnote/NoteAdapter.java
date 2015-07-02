@@ -1,7 +1,11 @@
 package com.coltan.tapnote;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +25,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
     private List<Note> appListSearch;
     private int mWhichFrag;
     private Context context;
+    private View v;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -63,7 +68,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
     @Override
     public NoteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row, parent, false);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vHolder = new ViewHolder(v);
         return vHolder;
@@ -85,11 +90,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         holder.relRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Activity activity = (Activity) context;
                 Intent i = new Intent(context, EditNoteActivity.class);
                 i.putExtra("id", mNote.getID());
                 context.startActivity(i);
-                //context.overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
+            }
+        });
+        holder.relRow.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                // Gets a handle to the clipboard service.
+                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                // Creates a new text clip to put on the clipboard
+                ClipData clip = ClipData.newPlainText(mNote.getTitle(), mNote.getNote());
+                // Set the clipboard's primary clip.
+                clipboard.setPrimaryClip(clip);
+                Snackbar.make(v, "Copied to clipboard", Snackbar.LENGTH_SHORT).show();
+                return true;
             }
         });
 

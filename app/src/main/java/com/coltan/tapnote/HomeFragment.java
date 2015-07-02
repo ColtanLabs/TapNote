@@ -80,30 +80,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         return v;
     }
 
-    /*@Override
-    public void onItemClick(View childView, int position) {
-        // Do something when an item is clicked.
-        int id = Integer.parseInt(mId.get(position));
-        Intent i = new Intent(getActivity(), EditNoteActivity.class);
-        i.putExtra("id", id);
-        i.putExtra("position", position);
-        startActivity(i);
-        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
-    }*/
-
-    /*@Override
-    public void onItemLongPress(View childView, int position) {
-        // Do another thing when an item is long pressed.
-
-        // Gets a handle to the clipboard service.
-        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        // Creates a new text clip to put on the clipboard
-        ClipData clip = ClipData.newPlainText(mHeader.get(position), mNote.get(position));
-        // Set the clipboard's primary clip.
-        clipboard.setPrimaryClip(clip);
-        Snackbar.make(childView, "Copied to clipboard", Snackbar.LENGTH_SHORT).show();
-    }*/
-
     private void initData() {
         DatabaseHandler db = new DatabaseHandler(getActivity());
         List<Note> notes = db.getAllNotes();
