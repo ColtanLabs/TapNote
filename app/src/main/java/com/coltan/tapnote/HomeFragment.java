@@ -29,7 +29,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     private List<String> mId = new ArrayList<>();
     private List<String> mHeader = new ArrayList<>();
-    private List<String> mSubHeader = new ArrayList<>();
     private List<String> mTag = new ArrayList<>();
     private ArrayList<String> mNote = new ArrayList<>();
 
@@ -64,7 +63,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
         initData();
 
-        RecyclerView.Adapter mAdapter = new NoteAdapter(createList(mId, mHeader, mSubHeader, mTag), 0, context);
+        RecyclerView.Adapter mAdapter = new NoteAdapter(createList(mId, mHeader, mNote, mTag), 0, context);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
@@ -75,8 +74,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             }
         });
 
-        //mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), this));
-
         return v;
     }
 
@@ -86,17 +83,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         for (Note nt : notes) {
             mId.add(String.valueOf(nt.getID()));
             mHeader.add(nt.getTitle());
-            String note = nt.getNote();
-            mNote.add(note);
-            note = note.replace("\n", " ");
-            String cnote;
-            if (note.length() > 25) {
-                cnote = note.substring(0, 25);
-                cnote = cnote.concat("...");
-            } else {
-                cnote = note;
-            }
-            mSubHeader.add(cnote);
+            mNote.add(nt.getNote());
             mTag.add(nt.getTag());
         }
     }

@@ -8,8 +8,8 @@ android {
         applicationId "com.coltan.tapnote"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 13
-        versionName "0.4.1 Beta"
+        versionCode 14
+        versionName "0.4.2 Beta"
     }
     buildTypes {
         release {

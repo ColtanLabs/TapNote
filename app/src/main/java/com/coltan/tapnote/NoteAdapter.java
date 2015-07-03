@@ -81,7 +81,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         // - replace the contents of the view with that element
         final Note mNote = mNoteList.get(position);
         holder.txtHeader.setText(mNote.getTitle());
-        holder.txtFooter.setText(mNote.getNote());
+        String note = mNote.getNote();
+        note = note.replace("\n", " ");
+        String subNote;
+        if (note.length() > 25) {
+            subNote = note.substring(0, 25);
+            subNote = subNote.concat("...");
+        } else {
+            subNote = note;
+        }
+        holder.txtFooter.setText(subNote);
         if (mNote.getTag().equals("")) {
             holder.txtTag.setVisibility(View.INVISIBLE);
         } else {
@@ -100,11 +109,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         holder.relRow.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                // Gets a handle to the clipboard service.
                 ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                // Creates a new text clip to put on the clipboard
                 ClipData clip = ClipData.newPlainText(mNote.getTitle(), mNote.getNote());
-                // Set the clipboard's primary clip.
                 clipboard.setPrimaryClip(clip);
                 Snackbar.make(v, "Copied to clipboard", Snackbar.LENGTH_SHORT).show();
                 return true;
