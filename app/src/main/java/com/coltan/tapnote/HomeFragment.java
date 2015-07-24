@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         if (newText.isEmpty()) {
             ((NoteAdapter) mRecyclerView.getAdapter()).getFilter().filter("");
         } else {
-            ((NoteAdapter) mRecyclerView.getAdapter()).getFilter().filter(newText);
+            ((NoteAdapter) mRecyclerView.getAdapter()).getFilter().filter(newText.toLowerCase());
         }
 
         return false;
