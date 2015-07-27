@@ -20,6 +20,9 @@
     <string name="copy">Copy</string>
     <string name="search">Search</string>
     <string name="search_noresults">No results were found for your search</string>
+    <string name="sort">Sort</string>
+    <string name="action_sort_newest">Newest</string>
+    <string name="action_sort_oldest">Oldest</string>
 
     <!--Preference strings-->
     <string name="prefs_delete_db">Delete Database</string>

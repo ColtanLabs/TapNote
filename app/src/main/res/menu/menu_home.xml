@@ -5,6 +5,23 @@
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/search"
-        app:showAsAction="always"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        android:orderInCategory="1"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_sort"
+        android:icon="@drawable/ic_sort_white_24dp"
+        android:title="@string/sort"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menu_action_sort_oldest"
+                android:title="@string/action_sort_oldest" />
+            <item
+                android:id="@+id/menu_action_sort_newest"
+                android:title="@string/action_sort_newest" />
+        </menu>
+    </item>
 </menu>

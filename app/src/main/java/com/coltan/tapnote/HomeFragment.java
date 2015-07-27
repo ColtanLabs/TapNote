@@ -3,6 +3,7 @@ package com.coltan.tapnote;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -38,6 +39,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     private MenuItem searchItem;
     private SearchView searchView;
     private static LinearLayout noResults;
+    RecyclerView.Adapter mAdapter;
+
+    public static final String SORT_PREFS_NAME = "SortPrefFile";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,7 +68,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
         initData();
 
-        RecyclerView.Adapter mAdapter = new NoteAdapter(createList(mId, mHeader, mNote, mTag, mDate), 0, context);
+        mAdapter = new NoteAdapter(createList(mId, mHeader, mNote, mTag, mDate), 0, context);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
@@ -97,6 +101,29 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int menuId = item.getItemId();
+
+        if (menuId == R.id.menu_action_sort_oldest) {
+            SharedPreferences settings = context.getSharedPreferences(SORT_PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("sortMode", "date_oldest");
+            editor.commit();
+            mAdapter.notifyDataSetChanged();
+            return true;
+        }
+        if (menuId == R.id.menu_action_sort_newest) {
+            SharedPreferences settings = context.getSharedPreferences(SORT_PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("sortMode", "date_newest");
+            editor.commit();
+            mAdapter.notifyDataSetChanged();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

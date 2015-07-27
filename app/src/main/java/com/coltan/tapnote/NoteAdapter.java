@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.coltan.tapnote.db.Note;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> implements Filterable {
@@ -26,6 +29,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
     private int mWhichFrag;
     private Context context;
     private View v;
+
+    public static final String SORT_PREFS_NAME = "SortPrefFile";
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -81,6 +86,32 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        SharedPreferences settings = context.getSharedPreferences(SORT_PREFS_NAME, 0);
+        String mSort = settings.getString("sortMode", "date_oldest");
+        if (mSort.equals("date_oldest")) {
+            Collections.sort(mNoteList, new Comparator<Note>() {
+                @Override
+                public int compare(Note n1, Note n2) {
+                    if (n1.getDate() < n2.getDate()) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                }
+
+            });
+        } else if (mSort.equals("date_newest")) {
+            Collections.sort(mNoteList, new Comparator<Note>() {
+                @Override
+                public int compare(Note n1, Note n2) {
+                    if (n1.getDate() > n2.getDate()) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                }
+            });
+        }
         final Note mNote = mNoteList.get(position);
         holder.txtHeader.setText(mNote.getTitle());
         String note = mNote.getNote();
