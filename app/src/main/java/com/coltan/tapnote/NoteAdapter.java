@@ -35,6 +35,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         public TextView txtHeader;
         public TextView txtFooter;
         public TextView txtTag;
+        public TextView txtDate;
         public View relRow;
 
         public ViewHolder(View v) {
@@ -42,6 +43,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
             txtHeader = (TextView) v.findViewById(R.id.note_head);
             txtFooter = (TextView) v.findViewById(R.id.note_excerpt);
             txtTag = (TextView) v.findViewById(R.id.note_tag);
+            txtDate = (TextView) v.findViewById(R.id.note_time);
             relRow = v.findViewById(R.id.row_view);
         }
     }
@@ -84,8 +86,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         String note = mNote.getNote();
         note = note.replace("\n", " ");
         String subNote;
-        if (note.length() > 25) {
-            subNote = note.substring(0, 25);
+        if (note.length() > 45) {
+            subNote = note.substring(0, 45);
             subNote = subNote.concat("...");
         } else {
             subNote = note;
@@ -96,6 +98,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         } else {
             holder.txtTag.setText(mNote.getTag());
         }
+        //Convert millisecond
+        String time = TimeUtils.getTimeAgo(mNote.getDate(), context);
+        holder.txtDate.setText(time);
+        //Log.d("NoteAdapter", mNote.getDate());
         holder.relRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

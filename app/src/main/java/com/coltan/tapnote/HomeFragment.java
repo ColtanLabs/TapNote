@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     private List<String> mHeader = new ArrayList<>();
     private List<String> mTag = new ArrayList<>();
     private ArrayList<String> mNote = new ArrayList<>();
+    private ArrayList<Long> mDate = new ArrayList<>();
 
     private Context context;
     private RecyclerView mRecyclerView;
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
         initData();
 
-        RecyclerView.Adapter mAdapter = new NoteAdapter(createList(mId, mHeader, mNote, mTag), 0, context);
+        RecyclerView.Adapter mAdapter = new NoteAdapter(createList(mId, mHeader, mNote, mTag, mDate), 0, context);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
@@ -85,6 +86,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             mHeader.add(nt.getTitle());
             mNote.add(nt.getNote());
             mTag.add(nt.getTag());
+            mDate.add(nt.getDate());
         }
     }
 
@@ -144,10 +146,10 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         });
     }
 
-    private List<Note> createList(List<String> id, List<String> title, List<String> note, List<String> tag) {
+    private List<Note> createList(List<String> id, List<String> title, List<String> note, List<String> tag, List<Long> date) {
         List<Note> res = new ArrayList<Note>();
         for (int i = 0; i < id.size(); i++) {
-            Note noteInfo = new Note(id.get(i), title.get(i), note.get(i), tag.get(i));
+            Note noteInfo = new Note(Integer.parseInt(id.get(i)), title.get(i), note.get(i), tag.get(i), date.get(i));
             res.add(noteInfo);
         }
 

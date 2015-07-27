@@ -17,9 +17,6 @@ import android.widget.Toast;
 import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 
 public class AddNoteActivity extends AppCompatActivity {
 
@@ -27,8 +24,8 @@ public class AddNoteActivity extends AppCompatActivity {
     private String title;
     private String tag;
     private String note;
-    private String formattedDate;
     private String starred = "0";
+    private long time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +102,9 @@ public class AddNoteActivity extends AppCompatActivity {
         title = etTitle.getText().toString();
         tag = etTag.getText().toString();
         note = etNote.getText().toString();
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        formattedDate = df.format(c.getTime());
+
+        time = System.currentTimeMillis();
+
         if (title.isEmpty() || title.equals("")) {
             if (note.isEmpty() || note.equals("")) {
                 super.onBackPressed();
@@ -134,7 +131,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private class AddTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... args) {
             DatabaseHandler db = new DatabaseHandler(AddNoteActivity.this);
-            db.addNote(new Note(title, note, tag, formattedDate, starred));
+            db.addNote(new Note(title, note, tag, time, starred));
             db.close();
             return null;
         }

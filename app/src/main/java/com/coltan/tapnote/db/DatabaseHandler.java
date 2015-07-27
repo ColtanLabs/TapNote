@@ -63,6 +63,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_NOTE, note.getNote());
         values.put(KEY_TAG, note.getTag());
+        values.put(KEY_DATE, note.getDate());
         values.put(KEY_STARRED, note.getStarred());
         db.insert(TABLE_NOTE, null, values);
         db.close();
@@ -78,7 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Note note = new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+        Note note = new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getLong(3), cursor.getString(4));
         db.close();
         return note;
     }
@@ -99,7 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setTitle(cursor.getString(1));
                 note.setNote(cursor.getString(2));
                 note.setTag(cursor.getString(3));
-                note.setDate(cursor.getString(4));
+                note.setDate(cursor.getLong(4));
                 // Adding note to list
                 noteList.add(note);
             } while (cursor.moveToNext());
@@ -116,6 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_TAG, note.getTag());
         values.put(KEY_NOTE, note.getNote());
+        values.put(KEY_DATE, note.getDate());
         values.put(KEY_STARRED, note.getStarred());
         // updating row
         return db.update(TABLE_NOTE, values, KEY_ID + " = ?",
@@ -152,7 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setTitle(cursor.getString(1));
                 note.setNote(cursor.getString(2));
                 note.setTag(cursor.getString(3));
-                note.setDate(cursor.getString(4));
+                note.setDate(cursor.getLong(4));
                 // Adding note to list
                 noteList.add(note);
             } while (cursor.moveToNext());

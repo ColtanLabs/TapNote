@@ -40,7 +40,6 @@
         android:layout_margin="16dp"
         android:elevation="4dp"
         android:src="@drawable/ic_action_content_add"
-        app:borderWidth="0dp"
         app:layout_behavior="com.coltan.tapnote.ScrollAwareFABBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

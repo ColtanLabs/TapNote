@@ -23,15 +23,13 @@ import android.widget.Toast;
 import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 public class EditNoteActivity extends AppCompatActivity {
 
     private EditText etTitle, etTag, etNote;
     private int id;
     private Intent shareIntent;
-    private String title, tag, note, formattedDate, mStar;
+    private String title, tag, note, mStar;
+    private long time;
     private String starred = "0";
 
 
@@ -165,9 +163,10 @@ public class EditNoteActivity extends AppCompatActivity {
         title = etTitle.getText().toString();
         tag = etTag.getText().toString();
         note = etNote.getText().toString();
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        formattedDate = df.format(c.getTime());
+
+        time = System.currentTimeMillis();
+        Log.d("EditNoteActivity", String.valueOf(time));
+
         if (title.isEmpty() || title.equals("")) {
             title = "Untitled";
         }
@@ -186,7 +185,7 @@ public class EditNoteActivity extends AppCompatActivity {
             nt.setTitle(title);
             nt.setTag(tag);
             nt.setNote(note);
-            nt.setDate(formattedDate);
+            nt.setDate(time);
             nt.setStarred(starred);
             Log.d("ID", String.valueOf(id));
             DatabaseHandler db = new DatabaseHandler(EditNoteActivity.this);

@@ -7,7 +7,7 @@ public class Note {
     String _title;
     String _note;
     String _tag;
-    String _date;
+    long _date;
     String _starred;
 
     // Empty constructor
@@ -16,7 +16,7 @@ public class Note {
     }
 
     // constructor
-    public Note(String title, String note, String tag, String date, String starred) {
+    public Note(String title, String note, String tag, long date, String starred) {
         this._title = title;
         this._note = note;
         this._tag = tag;
@@ -24,11 +24,12 @@ public class Note {
         this._starred = starred;
     }
 
-    public Note(String id, String title, String note, String tag) {
+    public Note(int id, String title, String note, String tag, long date) {
         this._id = Integer.valueOf(id);
         this._title = title;
         this._note = note;
         this._tag = tag;
+        this._date = date;
     }
 
     // getting ID
@@ -72,12 +73,12 @@ public class Note {
     }
 
     // getting date
-    public String getDate() {
+    public long getDate() {
         return this._date;
     }
 
     // setting date
-    public void setDate(String date) {
+    public void setDate(long date) {
         this._date = date;
     }
 

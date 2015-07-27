@@ -29,9 +29,9 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
 
     private List<String> mId = new ArrayList<>();
     private List<String> mHeader = new ArrayList<>();
-    private List<String> mSubHeader = new ArrayList<>();
     private List<String> mTag = new ArrayList<>();
     private ArrayList<String> mNote = new ArrayList<>();
+    private ArrayList<Long> mDate = new ArrayList<>();
 
     private Context context;
     private RecyclerView mRecyclerView;
@@ -63,7 +63,7 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
         initData();
 
-        RecyclerView.Adapter mAdapter = new NoteAdapter(createList(mId, mHeader, mSubHeader, mTag), 1, context);
+        RecyclerView.Adapter mAdapter = new NoteAdapter(createList(mId, mHeader, mNote, mTag, mDate), 1, context);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
@@ -74,29 +74,8 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
             }
         });
 
-        //mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), this));
-
         return v;
     }
-
-    /*@Override
-    public void onItemClick(View childView, int position) {
-        // Do something when an item is clicked.
-        int id = Integer.parseInt(mId.get(position));
-        Intent i = new Intent(getActivity(), EditNoteActivity.class);
-        i.putExtra("id", id);
-        i.putExtra("position", position);
-        startActivity(i);
-    }
-
-    @Override
-    public void onItemLongPress(View childView, int position) {
-        // Do another thing when an item is long pressed.
-        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(mHeader.get(position), mNote.get(position));
-        clipboard.setPrimaryClip(clip);
-        Snackbar.make(childView, "Copied to clipboard", Snackbar.LENGTH_SHORT).show();
-    }*/
 
     private void initData() {
         DatabaseHandler db = new DatabaseHandler(getActivity());
@@ -104,18 +83,9 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
         for (Note nt : notes) {
             mId.add(String.valueOf(nt.getID()));
             mHeader.add(nt.getTitle());
-            String note = nt.getNote();
-            mNote.add(note);
-            note = note.replace("\n", " ");
-            String cnote;
-            if (note.length() > 25) {
-                cnote = note.substring(0, 25);
-                cnote = cnote.concat("...");
-            } else {
-                cnote = note;
-            }
-            mSubHeader.add(cnote);
+            mNote.add(nt.getNote());
             mTag.add(nt.getTag());
+            mDate.add(nt.getDate());
         }
     }
 
@@ -139,7 +109,7 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
         if (newText.isEmpty()) {
             ((NoteAdapter) mRecyclerView.getAdapter()).getFilter().filter("");
         } else {
-            ((NoteAdapter) mRecyclerView.getAdapter()).getFilter().filter(newText);
+            ((NoteAdapter) mRecyclerView.getAdapter()).getFilter().filter(newText.toLowerCase());
         }
 
         return false;
@@ -176,10 +146,10 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
         });
     }
 
-    private List<Note> createList(List<String> id, List<String> title, List<String> note, List<String> tag) {
+    private List<Note> createList(List<String> id, List<String> title, List<String> note, List<String> tag, List<Long> date) {
         List<Note> res = new ArrayList<Note>();
         for (int i = 0; i < id.size(); i++) {
-            Note noteInfo = new Note(id.get(i), title.get(i), note.get(i), tag.get(i));
+            Note noteInfo = new Note(Integer.parseInt(id.get(i)), title.get(i), note.get(i), tag.get(i), date.get(i));
             res.add(noteInfo);
         }
 
