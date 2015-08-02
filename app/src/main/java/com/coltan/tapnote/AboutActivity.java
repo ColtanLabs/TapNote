@@ -65,7 +65,6 @@ public class AboutActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return res;
     }
 
