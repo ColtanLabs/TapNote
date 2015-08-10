@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="AppTheme.Base">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textColorSecondary">@color/secondaryText</item>
+        <!--Toolbar Theme-->
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <!--Element theme-->
+        <item name="aboutCardBackground">@color/cardBackgroundColor</item>
+        <item name="textColor">@color/primaryText</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="MaterialDrawerTheme">
+        <!-- Customize your dark theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/primaryTextInverse</item>
+        <item name="android:textColorSecondary">@color/secondaryTextInverse</item>
+        <!--Toolbar Theme-->
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <!--Element theme-->
+        <item name="aboutCardBackground">@color/cardBackgroundColorInverse</item>
+        <item name="textColor">@color/primaryTextInverse</item>
     </style>
 </resources>

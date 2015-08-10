@@ -5,6 +5,18 @@
     <color name="colorAccent">#FFC107</color>
     <color name="colorAccentPressed">#FFB300</color>
     <color name="colorRipple">#FF6F00</color>
+
     <color name="white">#FFFFFF</color>
+
+    <!--Light theme color-->
+    <color name="primaryText">#212121</color>
     <color name="secondaryText">#727272</color>
+    <color name="dividerColor">#B6B6B6</color>
+    <color name="cardBackgroundColor">#FFFFFF</color>
+
+    <!--Dark theme color-->
+    <color name="primaryTextInverse">#FFFFFF</color>
+    <color name="secondaryTextInverse">#DEDEDE</color>
+    <color name="dividerColorInverse">#1F1F1F</color>
+    <color name="cardBackgroundColorInverse">#424242</color>
 </resources>

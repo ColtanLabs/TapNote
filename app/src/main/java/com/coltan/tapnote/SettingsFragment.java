@@ -1,9 +1,12 @@
 package com.coltan.tapnote;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
 public class SettingsFragment extends PreferenceFragment {
+
+    private SharedPreferences.OnSharedPreferenceChangeListener mListener;
 
 
     public SettingsFragment() {
@@ -19,4 +22,28 @@ public class SettingsFragment extends PreferenceFragment {
 
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                if (key.equals(getActivity().getString(R.string.pref_theme))) {
+                    getActivity().recreate();
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(mListener);
+    }
+
+    @Override
+    public void onPause() {
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(mListener);
+        super.onPause();
+    }
 }

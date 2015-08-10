@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
 
-public class EditNoteActivity extends AppCompatActivity {
+public class EditNoteActivity extends BaseActivity {
 
     private EditText etTitle, etTag, etNote;
     private int id;

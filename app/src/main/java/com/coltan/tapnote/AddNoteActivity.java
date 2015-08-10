@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,7 +17,7 @@ import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
 
 
-public class AddNoteActivity extends AppCompatActivity {
+public class AddNoteActivity extends BaseActivity {
 
     private EditText etTitle, etTag, etNote;
     private String title;

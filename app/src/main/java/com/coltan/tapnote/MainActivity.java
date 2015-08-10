@@ -18,7 +18,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     Toolbar toolbar;
     private Drawer result = null;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private void createDrawer() {
         result = new DrawerBuilder()
                 .withActivity(this)
+                .withTranslucentStatusBar(false)
                 .withToolbar(toolbar)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(FontAwesome.Icon.faw_home).withIdentifier(0),
