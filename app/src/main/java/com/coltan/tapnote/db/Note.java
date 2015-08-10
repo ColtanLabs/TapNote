@@ -25,7 +25,7 @@ public class Note {
     }
 
     public Note(int id, String title, String note, String tag, long date) {
-        this._id = Integer.valueOf(id);
+        this._id = id;
         this._title = title;
         this._note = note;
         this._tag = tag;

@@ -81,6 +81,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Note note = new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getLong(3), cursor.getString(4));
         db.close();
+        cursor.close();
         return note;
     }
 
@@ -106,6 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         db.close();
+        cursor.close();
         return noteList;
     }
 

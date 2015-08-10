@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             SharedPreferences settings = context.getSharedPreferences(SORT_PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("sortMode", "date_oldest");
-            editor.commit();
+            editor.apply();
             mAdapter.notifyDataSetChanged();
             return true;
         }
@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             SharedPreferences settings = context.getSharedPreferences(SORT_PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("sortMode", "date_newest");
-            editor.commit();
+            editor.apply();
             mAdapter.notifyDataSetChanged();
             return true;
         }
@@ -174,7 +174,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
     private List<Note> createList(List<String> id, List<String> title, List<String> note, List<String> tag, List<Long> date) {
-        List<Note> res = new ArrayList<Note>();
+        List<Note> res = new ArrayList<>();
         for (int i = 0; i < id.size(); i++) {
             Note noteInfo = new Note(Integer.parseInt(id.get(i)), title.get(i), note.get(i), tag.get(i), date.get(i));
             res.add(noteInfo);

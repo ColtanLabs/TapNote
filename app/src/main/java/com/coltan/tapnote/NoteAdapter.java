@@ -27,7 +27,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
     private List<Note> mNoteList;
     private List<Note> appListSearch;
     private int mWhichFrag;
-    private Context context;
+    private final Context context;
     private View v;
 
     public static final String SORT_PREFS_NAME = "SortPrefFile";
@@ -77,8 +77,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         // create a new view
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vHolder = new ViewHolder(v);
-        return vHolder;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

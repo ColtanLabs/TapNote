@@ -10,7 +10,7 @@ import com.coltan.tapnote.db.DatabaseHandler;
 
 public class DeleteDatabasePreference extends DialogPreference {
 
-    private Context mContext;
+    private final Context mContext;
 
     public DeleteDatabasePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -21,15 +21,6 @@ public class DeleteDatabasePreference extends DialogPreference {
         setNegativeButtonText(android.R.string.cancel);
 
         setDialogIcon(null);
-    }
-
-    @Override
-    protected void onBindDialogView(View view) {
-        super.onBindDialogView(view);
-        // view is your layout expanded and added to the dialog
-        // find and hang on to your views here, add click listeners etc
-        // basically things you would do in onCreate
-        //mTextView = (TextView)view.findViewById(R.Id.mytextview);
     }
 
     @Override
