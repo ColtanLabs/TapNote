@@ -6,10 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -48,8 +47,8 @@ public class MainActivity extends BaseActivity {
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        int identifier = drawerItem.getIdentifier();
+                    public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
+                        int identifier = iDrawerItem.getIdentifier();
                         switch (identifier) {
                             case 0:
                                 onHomeSelected();
@@ -74,7 +73,7 @@ public class MainActivity extends BaseActivity {
                 })
                 .build();
         result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
-        result.setSelectionByIdentifier(0);
+        result.setSelection(0);
     }
 
     private void onHomeSelected() {
