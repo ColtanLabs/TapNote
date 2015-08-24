@@ -3,7 +3,6 @@ package com.coltan.tapnote;
 import android.content.Context;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.Toast;
 
 import com.coltan.tapnote.db.DatabaseHandler;
