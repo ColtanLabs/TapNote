@@ -172,7 +172,7 @@ public class EditNoteActivity extends BaseActivity {
         UpdateTask ut = new UpdateTask();
         ut.execute();
         super.onBackPressed();
-        overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
+        //overridePendingTransition(0, R.anim.slide_out_right);
         NavUtils.navigateUpFromSameTask(this);
         finish();
     }

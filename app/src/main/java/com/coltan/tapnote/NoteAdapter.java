@@ -139,7 +139,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
                 Intent i = new Intent(context, EditNoteActivity.class);
                 i.putExtra("id", mNote.getID());
                 context.startActivity(i);
-                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
+                //activity.overridePendingTransition(R.anim.slide_in_right, 0);
             }
         });
         holder.relRow.setOnLongClickListener(new View.OnLongClickListener() {
