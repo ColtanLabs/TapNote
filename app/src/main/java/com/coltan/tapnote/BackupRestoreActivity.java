@@ -1,9 +1,13 @@
 package com.coltan.tapnote;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +29,15 @@ import java.nio.channels.FileChannel;
 
 public class BackupRestoreActivity extends BaseActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
+    final Context context;
+    final Activity activity;
+
+    public BackupRestoreActivity() {
+        context = this;
+        activity = this;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +58,10 @@ public class BackupRestoreActivity extends BaseActivity {
         btnBackup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackupDatabaseTask bdt = new BackupDatabaseTask();
-                bdt.execute();
+                if (UtilsApp.checkPermissions(activity)) {
+                    BackupDatabaseTask bdt = new BackupDatabaseTask();
+                    bdt.execute();
+                }
             }
         });
 
@@ -66,12 +81,41 @@ public class BackupRestoreActivity extends BaseActivity {
         btnRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RestoreDatabaseTask rdt = new RestoreDatabaseTask();
-                rdt.execute();
+                if (UtilsApp.checkPermissions(activity)) {
+                    RestoreDatabaseTask rdt = new RestoreDatabaseTask();
+                    rdt.execute();
+                }
             }
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_READ: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission was granted, yay!
+                    showMessage(getString(R.string.permission_backup_explain));
+
+                } else {
+                    // Permission denied, boo! Disable the functionality that depends on this permission.
+                    showMessage(getString(R.string.permission_backup_denied));
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    private void showMessage(String message) {
+        new AlertDialog.Builder(BackupRestoreActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", null)
+                .create()
+                .show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
