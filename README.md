@@ -3,21 +3,18 @@
 
 ### Tap Note ###
 
-Simple note app with ease of copy the note to the clipboard using a tap touch.
+Tap Note is the easiest way to keep track of your thoughts and ideas.
 
-# Functionality needs to be included #
+[Play Store] (https://play.google.com/store/apps/details?id=com.coltan.tapnote)
 
-* Random or specified color for each noteTag
+Highlights:
 
-* Material animation
+*  Fast and clean code.
 
+*  Easy to use and minimal UI that follows Google's Material design guidelines.
 
-# Features needs to be in future #
+*  Easy to copy note by long pressing the note.
 
-* Online backup:  Sign in with Google account and sync the data with online storage.
+*  Backup and restore your notes.
 
-* Privacy notes: Notes can be locked and access it using some 4-pin number lock.
-
-* Search Function: both by note titles and note tags
-
-* Encrypted database backup and restore functionality.
+*  And more features coming soon.
