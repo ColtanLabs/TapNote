@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
                         new PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(FontAwesome.Icon.faw_home).withIdentifier(0),
                         new PrimaryDrawerItem().withName(getString(R.string.starred)).withIcon(FontAwesome.Icon.faw_star).withIdentifier(1),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName(getString(R.string.backup_restore)).withIcon(GoogleMaterial.Icon.gmd_settings_backup_restore).withIdentifier(23),
+                        new SecondaryDrawerItem().withName(getString(R.string.backup_restore)).withIcon(GoogleMaterial.Icon.gmd_swap).withIdentifier(23),
                         new SecondaryDrawerItem().withName(getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(24),
                         new SecondaryDrawerItem().withName(getString(R.string.about)).withIcon(FontAwesome.Icon.faw_info).withIdentifier(25)
                 )
