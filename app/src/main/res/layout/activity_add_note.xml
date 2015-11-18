@@ -1,21 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
-    tools:context="com.coltan.tapnote.AddNote">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical"
+              tools:context="com.coltan.tapnote.AddNote">
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/app_bar" />
+        layout="@layout/app_bar"/>
 
     <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
     <LinearLayout
         android:layout_width="0px"
         android:layout_height="0px"
         android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,14 +24,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/floatTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginTop="16dp">
 
                 <EditText
@@ -42,8 +43,7 @@
                     android:inputType="textCapSentences"
                     android:nextFocusDown="@+id/noteContent"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:theme="@style/NoteAppearance" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -51,8 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp">
 
                 <EditText
@@ -63,25 +61,24 @@
                     android:inputType="text"
                     android:nextFocusDown="@+id/noteContent"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:theme="@style/NoteAppearance" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/floatNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/noteContent"
+                    style="@style/NoteEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/note"
                     android:inputType="textMultiLine|textCapSentences"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:theme="@style/NoteAppearance" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     </ScrollView>
