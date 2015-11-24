@@ -1,7 +1,7 @@
 # README #
 
 
-### Tap Note ###
+#### Tap Note ####
 
 Tap Note is the easiest way to keep track of your thoughts and ideas.
 
