@@ -29,7 +29,6 @@ public class SettingsActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -38,6 +37,7 @@ public class SettingsActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        NavUtils.navigateUpFromSameTask(this);
         overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
     }
 }
