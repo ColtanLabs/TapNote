@@ -116,14 +116,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         holder.txtHeader.setText(mNote.getTitle());
         String note = mNote.getNote();
         note = note.replace("\n", " ");
-        String subNote;
-        if (note.length() > 45) {
-            subNote = note.substring(0, 45);
-            subNote = subNote.concat("...");
-        } else {
-            subNote = note;
-        }
-        holder.txtFooter.setText(subNote);
+        holder.txtFooter.setText(note);
         if (mNote.getTag().equals("")) {
             holder.txtTag.setVisibility(View.INVISIBLE);
         } else {

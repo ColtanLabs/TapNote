@@ -11,15 +11,16 @@
         layout="@layout/app_bar"/>
 
     <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="0px"
         android:layout_height="0px"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true"/>-->
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +68,7 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/floatNote"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="8dp">
 
@@ -75,8 +76,9 @@
                     android:id="@+id/noteContent"
                     style="@style/NoteEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="@string/note"
+                    android:gravity="top"
                     android:inputType="textMultiLine|textCapSentences"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
             </android.support.design.widget.TextInputLayout>

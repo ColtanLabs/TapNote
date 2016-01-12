@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
     android:id="@+id/row_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="16dp"
@@ -14,7 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:paddingTop="16dp" />
+        android:paddingTop="16dp"/>
 
     <TextView
         android:id="@+id/note_excerpt"
@@ -24,7 +25,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/note_head"
-        android:paddingBottom="16dp" />
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="16dp"/>
 
     <TextView
         android:id="@+id/note_tag"
@@ -35,7 +38,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/round_corner"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:maxLength="16"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
         android:id="@+id/note_time"
@@ -44,5 +48,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>
