@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity {
     private void createDrawer() {
         result = new DrawerBuilder()
                 .withActivity(this)
-                .withTranslucentStatusBar(false)
+                .withTranslucentStatusBar(true)
                 .withToolbar(toolbar)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(FontAwesome.Icon.faw_home).withIdentifier(0),
@@ -48,8 +48,8 @@ public class MainActivity extends BaseActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
-                        int identifier = iDrawerItem.getIdentifier();
-                        switch (identifier) {
+                        long identifier = iDrawerItem.getIdentifier();
+                        switch ((int) identifier) {
                             case 0:
                                 onHomeSelected();
                                 toolbar.setTitle(getString(R.string.app_name));
