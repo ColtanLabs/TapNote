@@ -1,8 +1,10 @@
-package com.coltan.tapnote;
+package com.coltan.tapnote.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.coltan.tapnote.R;
 
 public class SettingsFragment extends PreferenceFragment {
 

@@ -1,9 +1,12 @@
-package com.coltan.tapnote;
+package com.coltan.tapnote.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.coltan.tapnote.R;
+import com.coltan.tapnote.fragments.SettingsFragment;
 
 public class SettingsActivity extends BaseActivity {
 

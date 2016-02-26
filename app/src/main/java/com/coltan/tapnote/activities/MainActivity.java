@@ -1,4 +1,4 @@
-package com.coltan.tapnote;
+package com.coltan.tapnote.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.coltan.tapnote.R;
+import com.coltan.tapnote.fragments.HomeFragment;
+import com.coltan.tapnote.fragments.StarredFragment;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;

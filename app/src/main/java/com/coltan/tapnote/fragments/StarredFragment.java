@@ -1,4 +1,4 @@
-package com.coltan.tapnote;
+package com.coltan.tapnote.fragments;
 
 
 import android.content.Context;
@@ -20,6 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.coltan.tapnote.DividerItemDecoration;
+import com.coltan.tapnote.NoteAdapter;
+import com.coltan.tapnote.R;
+import com.coltan.tapnote.activities.AddNoteActivity;
 import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
 

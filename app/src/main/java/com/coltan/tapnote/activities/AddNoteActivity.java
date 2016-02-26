@@ -1,4 +1,4 @@
-package com.coltan.tapnote;
+package com.coltan.tapnote.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.coltan.tapnote.R;
 import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
 

@@ -1,8 +1,10 @@
-package com.coltan.tapnote;
+package com.coltan.tapnote.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.coltan.tapnote.R;
 
 
 public abstract class BaseActivity extends AppCompatActivity {

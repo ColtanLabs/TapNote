@@ -1,4 +1,4 @@
-package com.coltan.tapnote;
+package com.coltan.tapnote.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +18,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coltan.tapnote.R;
+import com.coltan.tapnote.UtilsApp;
 import com.coltan.tapnote.db.DatabaseHandler;
 
 import java.io.File;

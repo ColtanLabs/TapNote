@@ -1,4 +1,4 @@
-package com.coltan.tapnote;
+package com.coltan.tapnote.activities;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.coltan.tapnote.R;
 import com.coltan.tapnote.db.DatabaseHandler;
 import com.coltan.tapnote.db.Note;
 

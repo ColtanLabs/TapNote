@@ -16,7 +16,10 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.coltan.tapnote.activities.EditNoteActivity;
 import com.coltan.tapnote.db.Note;
+import com.coltan.tapnote.fragments.HomeFragment;
+import com.coltan.tapnote.fragments.StarredFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
