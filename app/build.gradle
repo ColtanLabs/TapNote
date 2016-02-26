@@ -11,6 +11,7 @@ android {
         versionCode 18
         versionName "0.5.2 Beta"
         resValue "string", "app_name", "Tap Note"
+        generatedDensities = []
     }
     buildTypes {
         release {
@@ -27,6 +28,10 @@ android {
             java.srcDirs = ['src/main/java', 'src/main/java/db']
             res.srcDirs = ['src/main/res', 'src/main/res/mipmap-xxxhdpi']
         }
+    }
+    // This is handled for you by the 2.0+ Gradle Plugin
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
     }
 }
 
