@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tap Note</string>
+    <!--<string name="app_name">Tap Note</string>-->
     <string name="backup_restore">Backup/Restore</string>
     <string name="backup_text">Backup will export all your notes into the folder below.</string>
     <string name="backup_folder">Backup folder:</string>

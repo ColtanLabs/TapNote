@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".activities.AddNoteActivity"
-            android:label="">
+            android:label=""
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity"/>
@@ -30,6 +31,7 @@
         <activity
             android:name=".activities.EditNoteActivity"
             android:label=""
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -37,21 +39,24 @@
         </activity>
         <activity
             android:name=".activities.BackupRestoreActivity"
-            android:label="@string/backup_restore">
+            android:label="@string/backup_restore"
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity"/>
         </activity>
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/settings">
+            android:label="@string/settings"
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity"/>
         </activity>
         <activity
             android:name=".activities.AboutActivity"
-            android:label="@string/about">
+            android:label="@string/about"
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity"/>
