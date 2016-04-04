@@ -20,7 +20,7 @@ android {
         }
         debug {
             applicationIdSuffix '.debug'
-            resValue "string", "app_name", "Tap Note DEBUG"
+            resValue "string", "app_name", "Tap Note dev"
         }
     }
     sourceSets {
