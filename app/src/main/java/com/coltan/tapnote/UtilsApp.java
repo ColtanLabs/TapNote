@@ -3,6 +3,7 @@ package com.coltan.tapnote;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 
@@ -18,6 +19,27 @@ public class UtilsApp {
             res = true;
         }
 
+        return res;
+    }
+
+    public static String getAppVersionName(Context context) {
+        String res = "0.0.0.0";
+        try {
+            res = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static int getAppVersionCode(Context context) {
+        int res = 0;
+        try {
+            res = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return res;
     }
 }

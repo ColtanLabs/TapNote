@@ -10,6 +10,7 @@
     <string name="home">Home</string>
     <string name="starred">Starred</string>
     <string name="general">General</string>
+    <string name="feedback">Feedback</string>
     <string name="delete">Delete</string>
     <string name="about">About</string>
     <string name="title">Title</string>
@@ -44,4 +45,8 @@
     <string name="pref_theme_title">Theme</string>
     <string name="pref_theme_value_light">light</string>
     <string name="pref_theme_value_dark">dark</string>
+
+    <!--Mail strings-->
+    <string name="mail_subject">Feedback for Tap Note</string>
+    <string name="mail_chooser_title">Choose an Email client :</string>
 </resources>

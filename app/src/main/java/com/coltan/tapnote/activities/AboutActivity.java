@@ -1,6 +1,5 @@
 package com.coltan.tapnote.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.coltan.tapnote.R;
+import com.coltan.tapnote.UtilsApp;
 
 public class AboutActivity extends BaseActivity {
 
@@ -26,7 +26,7 @@ public class AboutActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView tvAppName = (TextView) findViewById(R.id.app_name);
-        tvAppName.setText(getResources().getString(R.string.app_name) + " " + getAppVersionName(this) + " (" + getAppVersionCode(this) + ")");
+        tvAppName.setText(getResources().getString(R.string.app_name) + " " + UtilsApp.getAppVersionName(this) + " (" + UtilsApp.getAppVersionCode(this) + ")");
 
         CardView cvRate = (CardView) findViewById(R.id.about_googleplay);
         cvRate.setOnClickListener(new View.OnClickListener() {
@@ -46,27 +46,6 @@ public class AboutActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private static String getAppVersionName(Context context) {
-        String res = "0.0.0.0";
-        try {
-            res = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return res;
-    }
-
-    private static int getAppVersionCode(Context context) {
-        int res = 0;
-        try {
-            res = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return res;
     }
 
     @Override

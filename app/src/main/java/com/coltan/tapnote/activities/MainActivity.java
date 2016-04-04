@@ -1,13 +1,16 @@
 package com.coltan.tapnote.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.coltan.tapnote.R;
+import com.coltan.tapnote.UtilsApp;
 import com.coltan.tapnote.fragments.HomeFragment;
 import com.coltan.tapnote.fragments.StarredFragment;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -23,6 +26,8 @@ public class MainActivity extends BaseActivity {
 
     Toolbar toolbar;
     private Drawer result = null;
+    private static final String TAG = "MainActivity";
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,8 @@ public class MainActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        mContext = this;
 
         createDrawer();
     }
@@ -46,6 +53,7 @@ public class MainActivity extends BaseActivity {
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName(getString(R.string.backup_restore)).withIcon(GoogleMaterial.Icon.gmd_swap).withIdentifier(23),
                         new SecondaryDrawerItem().withName(getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(24),
+                        new SecondaryDrawerItem().withName(getString(R.string.feedback)).withIcon(GoogleMaterial.Icon.gmd_help).withIdentifier(26).withSelectable(false),
                         new SecondaryDrawerItem().withName(getString(R.string.about)).withIcon(FontAwesome.Icon.faw_info).withIdentifier(25)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -69,6 +77,14 @@ public class MainActivity extends BaseActivity {
                                 break;
                             case 25:
                                 onAboutSelected();
+                                break;
+                            case 26:
+                                Log.d(TAG, "onItemClick: Feedback");
+                                Intent email = new Intent(Intent.ACTION_SEND);
+                                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"coltan.labs@gmail.com"});
+                                email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_subject).concat(" " + UtilsApp.getAppVersionName(mContext) + " (" + UtilsApp.getAppVersionCode(mContext) + ")"));
+                                email.setType("message/rfc822");
+                                startActivity(Intent.createChooser(email, getString(R.string.mail_chooser_title)));
                                 break;
                         }
                         return false;
