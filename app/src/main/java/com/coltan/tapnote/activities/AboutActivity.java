@@ -1,5 +1,6 @@
 package com.coltan.tapnote.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,13 +13,19 @@ import android.widget.TextView;
 
 import com.coltan.tapnote.R;
 import com.coltan.tapnote.UtilsApp;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 
 public class AboutActivity extends BaseActivity {
+
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        mContext = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,6 +51,21 @@ public class AboutActivity extends BaseActivity {
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://plus.google.com/communities/110446499770842385450"));
                 startActivity(intent);
+            }
+        });
+
+        CardView cvLicenses = (CardView) findViewById(R.id.about_licenses);
+        cvLicenses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new LibsBuilder()
+                        //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
+                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                        .withFields(R.string.class.getFields())
+                        .withActivityTitle(getString(R.string.about_license))
+                        .withAboutIconShown(true)
+                        .withAboutVersionShown(true)
+                        .start(mContext);
             }
         });
     }

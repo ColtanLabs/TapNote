@@ -45,6 +45,9 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.1.6@aar') {
         transitive = true
     }
+    compile('com.mikepenz:aboutlibraries:5.6.2@aar') {
+        transitive = true
+    }
     compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
 }

@@ -25,6 +25,12 @@
     <string name="action_sort_newest">Newest</string>
     <string name="action_sort_oldest">Oldest</string>
 
+    <!--About page-->
+    <string name="app_description">A minimalist and Material design note! Tap Note is the easiest way to keep track of your thoughts and ideas.</string>
+    <string name="rate_googleplay">Rate on Google Play</string>
+    <string name="follow_googleplus">Join the community on Google+</string>
+    <string name="about_license">Licenses</string>
+
     <string name="permission_backup_explain">Tap Note need Storage permission to backup your data</string>
     <string name="permission_backup_denied">You previously denied the permission to Storage. You have to manually grant this permission in Settings </string>
 
@@ -36,10 +42,6 @@
 
     <string name="import_failed_nofile">There is no readable backup file.</string>
     <string name="import_failed_noread">The backup file is not readable.</string>
-
-    <string name="app_description">A minimalist and Material design note! Tap Note is the easiest way to keep track of your thoughts and ideas.</string>
-    <string name="rate_googleplay">Rate on Google Play</string>
-    <string name="follow_googleplus">Join the community on Google+</string>
 
     <string name="pref_theme">pref_theme</string>
     <string name="pref_theme_title">Theme</string>
