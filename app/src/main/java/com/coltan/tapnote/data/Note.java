@@ -1,30 +1,20 @@
-package com.coltan.tapnote.db;
+package com.coltan.tapnote.data;
 
 
 public class Note {
     //private variables
-    int _id;
-    String _title;
-    String _note;
-    String _tag;
-    long _date;
-    String _starred;
+    private String _id;
+    private String _title;
+    private String _note;
+    private String _tag;
+    private String _date;
+    private String _starred;
 
     // Empty constructor
     public Note() {
-
     }
 
-    // constructor
-    public Note(String title, String note, String tag, long date, String starred) {
-        this._title = title;
-        this._note = note;
-        this._tag = tag;
-        this._date = date;
-        this._starred = starred;
-    }
-
-    public Note(int id, String title, String note, String tag, long date) {
+    public Note(String id, String title, String note, String tag, String date) {
         this._id = id;
         this._title = title;
         this._note = note;
@@ -33,12 +23,12 @@ public class Note {
     }
 
     // getting ID
-    public int getID() {
+    public String getID() {
         return this._id;
     }
 
     // setting ID
-    public void setID(int id) {
+    public void setID(String id) {
         this._id = id;
     }
 
@@ -73,12 +63,12 @@ public class Note {
     }
 
     // getting date
-    public long getDate() {
+    public String getDate() {
         return this._date;
     }
 
     // setting date
-    public void setDate(long date) {
+    public void setDate(String date) {
         this._date = date;
     }
 

@@ -51,4 +51,7 @@
     <!--Mail strings-->
     <string name="mail_subject">Feedback for Tap Note</string>
     <string name="mail_chooser_title">Choose an Email client :</string>
+
+    <!--Content provider-->
+    <string name="authority" translatable="false">com.coltan.tapnote</string>
 </resources>

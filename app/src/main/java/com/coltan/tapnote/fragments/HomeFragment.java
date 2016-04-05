@@ -1,16 +1,21 @@
 package com.coltan.tapnote.fragments;
 
 
+import android.app.Fragment;
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,26 +29,29 @@ import com.coltan.tapnote.DividerItemDecoration;
 import com.coltan.tapnote.NoteAdapter;
 import com.coltan.tapnote.R;
 import com.coltan.tapnote.activities.AddNoteActivity;
-import com.coltan.tapnote.db.DatabaseHandler;
-import com.coltan.tapnote.db.Note;
+import com.coltan.tapnote.data.Note;
+import com.coltan.tapnote.data.NoteContract;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<Cursor> {
 
-    private List<String> mId = new ArrayList<>();
-    private List<String> mHeader = new ArrayList<>();
-    private List<String> mTag = new ArrayList<>();
-    private ArrayList<String> mNote = new ArrayList<>();
-    private ArrayList<Long> mDate = new ArrayList<>();
+    private static final String TAG = "HomeFragment";
 
-    private Context context;
+    private static final int NOTE_LOADER_ID = 0;
+
+    String[] projections = {NoteContract.NoteEntry._ID, NoteContract.NoteEntry.COLUMN_TITLE,
+            NoteContract.NoteEntry.COLUMN_NOTE, NoteContract.NoteEntry.COLUMN_TAG,
+            NoteContract.NoteEntry.COLUMN_DATE};
+
+    private ArrayList<Note> mNote = new ArrayList<>();
+
+    private Context mContext;
     private RecyclerView mRecyclerView;
     private MenuItem searchItem;
     private SearchView searchView;
     private static LinearLayout noResults;
-    RecyclerView.Adapter mAdapter;
+    private RecyclerView.Adapter mAdapter;
 
     public static final String SORT_PREFS_NAME = "SortPrefFile";
 
@@ -51,12 +59,23 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = getActivity();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(NOTE_LOADER_ID, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        context = getActivity();
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
@@ -66,13 +85,10 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
-        initData();
-
-        mAdapter = new NoteAdapter(createList(mId, mHeader, mNote, mTag, mDate), 0, context);
+        mAdapter = new NoteAdapter(mNote, 0, mContext);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
@@ -84,18 +100,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         });
 
         return v;
-    }
-
-    private void initData() {
-        DatabaseHandler db = new DatabaseHandler(getActivity());
-        List<Note> notes = db.getAllNotes();
-        for (Note nt : notes) {
-            mId.add(String.valueOf(nt.getID()));
-            mHeader.add(nt.getTitle());
-            mNote.add(nt.getNote());
-            mTag.add(nt.getTag());
-            mDate.add(nt.getDate());
-        }
     }
 
     @Override
@@ -112,7 +116,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         int menuId = item.getItemId();
 
         if (menuId == R.id.menu_action_sort_oldest) {
-            SharedPreferences settings = context.getSharedPreferences(SORT_PREFS_NAME, 0);
+            SharedPreferences settings = mContext.getSharedPreferences(SORT_PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("sortMode", "date_oldest");
             editor.apply();
@@ -120,7 +124,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             return true;
         }
         if (menuId == R.id.menu_action_sort_newest) {
-            SharedPreferences settings = context.getSharedPreferences(SORT_PREFS_NAME, 0);
+            SharedPreferences settings = mContext.getSharedPreferences(SORT_PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("sortMode", "date_newest");
             editor.apply();
@@ -177,13 +181,40 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         });
     }
 
-    private List<Note> createList(List<String> id, List<String> title, List<String> note, List<String> tag, List<Long> date) {
-        List<Note> res = new ArrayList<>();
-        for (int i = 0; i < id.size(); i++) {
-            Note noteInfo = new Note(Integer.parseInt(id.get(i)), title.get(i), note.get(i), tag.get(i), date.get(i));
-            res.add(noteInfo);
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader loader = null;
+        if (id == NOTE_LOADER_ID) {
+            loader = new CursorLoader(getActivity(),
+                    NoteContract.NoteEntry.CONTENT_URI,
+                    projections,
+                    null,
+                    null,
+                    null);
         }
+        return loader;
+    }
 
-        return res;
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (data.getCount() == 0) {
+            Log.d(TAG, "No data in database");
+        }
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(data));
+        while (data.moveToNext()) {
+            String id = data.getString(data.getColumnIndex(NoteContract.NoteEntry._ID));
+            String title = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_TITLE));
+            String note = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_NOTE));
+            String tag = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_TAG));
+            String date = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_DATE));
+            Note n = new Note(id, title, note, tag, date);
+            mNote.add(n);
+        }
+        data.close();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
     }
 }

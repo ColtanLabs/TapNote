@@ -1,12 +1,18 @@
 package com.coltan.tapnote.activities;
 
+import android.app.LoaderManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AlertDialog;
@@ -15,18 +21,21 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.coltan.tapnote.R;
-import com.coltan.tapnote.db.DatabaseHandler;
-import com.coltan.tapnote.db.Note;
+import com.coltan.tapnote.data.NoteContract;
 
-public class EditNoteActivity extends BaseActivity {
+public class EditNoteActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private EditText etTitle, etTag, etNote;
-    private int id;
-    private String title, tag, note, mStar;
+    private static final String TAG = "EditNoteActivity";
+
+    private static final int NOTE_LOADER_ID = 0;
+
+    private Context mContext;
+    private TextInputEditText etTitle, etTag, etNote;
+    private String mNoteId;
+    private String title, tag, note;
     private long time;
     private String starred = "0";
 
@@ -36,27 +45,19 @@ public class EditNoteActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
-        id = getIntent().getIntExtra("id", 1);
+        mNoteId = getIntent().getStringExtra("id");
+        mContext = this;
+
+        getLoaderManager().initLoader(NOTE_LOADER_ID, null, this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        etTitle = (EditText) findViewById(R.id.editTitle);
-        etTag = (EditText) findViewById(R.id.editTag);
-        etNote = (EditText) findViewById(R.id.noteContent);
-
-        DatabaseHandler db = new DatabaseHandler(this);
-        Note an = db.getNote(id);
-        etTitle.setText(an.getTitle());
-        etTitle.setSelection(etTitle.getText().length());
-        etTag.setText(an.getTag());
-        etTag.setSelection(etTag.getText().length());
-        etNote.setText(an.getNote());
-        etNote.setSelection(etNote.getText().length());
-        starred = an.getStarred();
-        //Log.d("Info", starred);
+        etTitle = (TextInputEditText) findViewById(R.id.editTitle);
+        etTag = (TextInputEditText) findViewById(R.id.editTag);
+        etNote = (TextInputEditText) findViewById(R.id.noteContent);
     }
 
 
@@ -75,16 +76,19 @@ public class EditNoteActivity extends BaseActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                return true;
+                break;
 
             case R.id.action_delete:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                final Context context = this;
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("Delete this note?");
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int did) {
-                        DatabaseHandler db = new DatabaseHandler(context);
-                        db.deleteNote(id);
+                        int mRowsDeleted = getContentResolver().delete(
+                                NoteContract.NoteEntry.CONTENT_URI,
+                                NoteContract.NoteEntry._ID + "=?",
+                                new String[]{mNoteId}
+                        );
+                        Log.d(TAG, "Rows deleted " + mRowsDeleted);
                         NavUtils.navigateUpFromSameTask(EditNoteActivity.this);
                         finish();
                     }
@@ -114,7 +118,6 @@ public class EditNoteActivity extends BaseActivity {
 
             case R.id.action_star:
                 if (starred.equals("0")) {
-                    //change your view and sort it by Alphabet
                     item.setIcon(R.drawable.ic_star_white_24dp);
                     starred = "1";
                     Log.d("Info", "Starred = " + starred);
@@ -142,50 +145,99 @@ public class EditNoteActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getLoaderManager().restartLoader(NOTE_LOADER_ID, null, this);
+    }
+
+    @Override
     public void onBackPressed() {
+        //Saving the change
         title = etTitle.getText().toString();
         tag = etTag.getText().toString();
         note = etNote.getText().toString();
-
         time = System.currentTimeMillis();
-        Log.d("EditNoteActivity", String.valueOf(time));
-
         if (title.isEmpty() || title.equals("")) {
             title = "Untitled";
         }
         UpdateTask ut = new UpdateTask();
         ut.execute();
+
         super.onBackPressed();
         //overridePendingTransition(0, R.anim.slide_out_right);
         NavUtils.navigateUpFromSameTask(this);
-        finish();
+        //finish();
     }
 
-    private class UpdateTask extends AsyncTask<Void, Void, String> {
-        protected String doInBackground(Void... args) {
-            Note nt = new Note();
-            nt.setID(id);
-            nt.setTitle(title);
-            nt.setTag(tag);
-            nt.setNote(note);
-            nt.setDate(time);
-            nt.setStarred(starred);
-            Log.d("ID", String.valueOf(id));
-            DatabaseHandler db = new DatabaseHandler(EditNoteActivity.this);
-            int a = db.updateNote(nt);
-            db.close();
-            if (a == 1) {
-                return null;
-            } else {
-                return "Failed";
-            }
+    //Setting the note values
+    private void setNoteInfo(String title, String note, String tag, String date, String star) {
+        etTitle.setText(title);
+        etTitle.setSelection(etTitle.getText().length());
+        etTag.setText(tag);
+        etTag.setSelection(etTag.getText().length());
+        etNote.setText(note);
+        etNote.setSelection(etNote.getText().length());
+        starred = star;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader loader = null;
+        if (id == NOTE_LOADER_ID) {
+            //Log.d(TAG, "onCreateLoader: " + mNoteId);
+            loader = new CursorLoader(mContext,
+                    NoteContract.NoteEntry.CONTENT_URI,
+                    null,
+                    NoteContract.NoteEntry._ID + " = ?",
+                    new String[]{mNoteId},
+                    null);
+        }
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (data.getCount() == 0) {
+            Log.d(TAG, "No data in database");
+        }
+        if (data.moveToFirst()) {
+            String title = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_TITLE));
+            String note = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_NOTE));
+            String tag = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_TAG));
+            String date = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_DATE));
+            String starred = data.getString(data.getColumnIndex(NoteContract.NoteEntry.COLUMN_STARRED));
+            setNoteInfo(title, note, tag, date, starred);
+        }
+        data.close();
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+    }
+
+    private class UpdateTask extends AsyncTask<Void, Void, Integer> {
+        protected Integer doInBackground(Void... args) {
+            ContentValues mUpdateValues = new ContentValues();
+            mUpdateValues.put(NoteContract.NoteEntry.COLUMN_TITLE, title);
+            mUpdateValues.put(NoteContract.NoteEntry.COLUMN_NOTE, note);
+            mUpdateValues.put(NoteContract.NoteEntry.COLUMN_TAG, tag);
+            mUpdateValues.put(NoteContract.NoteEntry.COLUMN_DATE, time);
+            mUpdateValues.put(NoteContract.NoteEntry.COLUMN_STARRED, starred);
+
+            int mRowsUpdated = getContentResolver().update(
+                    NoteContract.NoteEntry.CONTENT_URI,
+                    mUpdateValues,
+                    NoteContract.NoteEntry._ID + "=?",
+                    new String[]{mNoteId}
+            );
+            return mRowsUpdated;
         }
 
-        protected void onPostExecute(String errorMsg) {
-            if (errorMsg == null) {
-                //Toast.makeText(EditNoteActivity.this, "Update Successful!", Toast.LENGTH_SHORT).show();
+        protected void onPostExecute(Integer nRowsUpdated) {
+            if (nRowsUpdated == 0) {
+                Log.d(TAG, "onPostExecute: Failed to update");
             } else {
-                Toast.makeText(EditNoteActivity.this, "Update Failed!", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onPostExecute: Successful update" + nRowsUpdated);
             }
         }
     }

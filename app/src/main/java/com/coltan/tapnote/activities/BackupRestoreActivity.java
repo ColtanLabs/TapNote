@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.coltan.tapnote.R;
 import com.coltan.tapnote.UtilsApp;
-import com.coltan.tapnote.db.DatabaseHandler;
+import com.coltan.tapnote.data.NoteDbHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -155,7 +155,7 @@ public class BackupRestoreActivity extends BaseActivity {
     private class BackupDatabaseTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... args) {
             String errorMsg;
-            File dbFile = getApplication().getDatabasePath(DatabaseHandler.DATABASE_NAME);
+            File dbFile = getApplication().getDatabasePath(NoteDbHelper.DATABASE_NAME);
             File exportDir = getBackupFolder();
             if (!exportDir.exists()) {
                 exportDir.mkdirs();
@@ -205,8 +205,8 @@ public class BackupRestoreActivity extends BaseActivity {
             } else if (!dbBackupFile.canRead()) {
                 return getString(R.string.import_failed_noread);
             }
-            File dbFile = getApplication().getDatabasePath(DatabaseHandler.DATABASE_NAME);
-            getApplication().deleteDatabase(DatabaseHandler.DATABASE_NAME);
+            File dbFile = getApplication().getDatabasePath(NoteDbHelper.DATABASE_NAME);
+            getApplication().deleteDatabase(NoteDbHelper.DATABASE_NAME);
 
             try {
                 dbFile.createNewFile();

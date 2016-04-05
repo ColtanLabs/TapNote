@@ -5,7 +5,7 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.widget.Toast;
 
-import com.coltan.tapnote.db.DatabaseHandler;
+import com.coltan.tapnote.data.NoteDbHelper;
 
 public class DeleteDatabasePreference extends DialogPreference {
 
@@ -28,7 +28,7 @@ public class DeleteDatabasePreference extends DialogPreference {
 
         if (positiveResult) {
             // deal with persisting your values here
-            DatabaseHandler dh = new DatabaseHandler(mContext);
+            NoteDbHelper dh = new NoteDbHelper(mContext);
             dh.deleteAllNote();
             Toast.makeText(mContext, "Successfully deleted", Toast.LENGTH_SHORT).show();
         }

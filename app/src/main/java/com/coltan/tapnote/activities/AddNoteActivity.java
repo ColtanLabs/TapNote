@@ -1,25 +1,30 @@
 package com.coltan.tapnote.activities;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.coltan.tapnote.R;
-import com.coltan.tapnote.db.DatabaseHandler;
-import com.coltan.tapnote.db.Note;
+import com.coltan.tapnote.data.NoteContract;
 
 
 public class AddNoteActivity extends BaseActivity {
 
-    private EditText etTitle, etTag, etNote;
+    private static final String TAG = "AddNoteActivity";
+
+    private Context mContext;
+
+    private TextInputEditText etTitle, etTag, etNote;
     private String title;
     private String tag;
     private String note;
@@ -30,15 +35,16 @@ public class AddNoteActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+        mContext = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        etTitle = (EditText) findViewById(R.id.editTitle);
-        etTag = (EditText) findViewById(R.id.editTag);
-        etNote = (EditText) findViewById(R.id.noteContent);
+        etTitle = (TextInputEditText) findViewById(R.id.editTitle);
+        etTag = (TextInputEditText) findViewById(R.id.editTag);
+        etNote = (TextInputEditText) findViewById(R.id.noteContent);
     }
 
     @Override
@@ -50,17 +56,13 @@ public class AddNoteActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                return true;
+                break;
 
             case R.id.action_star:
                 if (starred.equals("0")) {
-                    //change your view and sort it by Alphabet
                     item.setIcon(R.drawable.ic_star_white_24dp);
                     starred = "1";
                     Log.d("Info", "Starred = " + starred);
@@ -87,7 +89,6 @@ public class AddNoteActivity extends BaseActivity {
         title = etTitle.getText().toString();
         tag = etTag.getText().toString();
         note = etNote.getText().toString();
-
         time = System.currentTimeMillis();
 
         if (title.isEmpty() || title.equals("")) {
@@ -113,20 +114,25 @@ public class AddNoteActivity extends BaseActivity {
 
     }
 
-    private class AddTask extends AsyncTask<Void, Void, String> {
-        protected String doInBackground(Void... args) {
-            DatabaseHandler db = new DatabaseHandler(AddNoteActivity.this);
-            db.addNote(new Note(title, note, tag, time, starred));
-            db.close();
-            return null;
+    private class AddTask extends AsyncTask<Void, Void, Uri> {
+
+        protected Uri doInBackground(Void... args) {
+            ContentValues noteInfoValues = new ContentValues();
+            noteInfoValues.put(NoteContract.NoteEntry.COLUMN_TITLE, title);
+            noteInfoValues.put(NoteContract.NoteEntry.COLUMN_NOTE, note);
+            noteInfoValues.put(NoteContract.NoteEntry.COLUMN_TAG, tag);
+            noteInfoValues.put(NoteContract.NoteEntry.COLUMN_DATE, time);
+            noteInfoValues.put(NoteContract.NoteEntry.COLUMN_STARRED, starred);
+            Log.d(TAG, "onClick: " + NoteContract.NoteEntry.CONTENT_URI);
+            return mContext.getContentResolver()
+                    .insert(NoteContract.NoteEntry.CONTENT_URI, noteInfoValues);
         }
 
-        protected void onPostExecute(String errorMsg) {
-            if (errorMsg == null) {
-                //Toast.makeText(AddNoteActivity.this, "Added Successful!", Toast.LENGTH_SHORT).show();
+        protected void onPostExecute(Uri newUri) {
+            if (newUri == null) {
+                Log.d(TAG, "onPostExecute: Failed to insert");
             } else {
-                Toast.makeText(AddNoteActivity.this, "Added Failed!", Toast.LENGTH_LONG).show();
-                //Log.d("Error", errorMsg);
+                Log.d(TAG, "onPostExecute: Successful inserted" + newUri);
             }
         }
     }

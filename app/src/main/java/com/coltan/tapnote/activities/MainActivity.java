@@ -1,10 +1,9 @@
 package com.coltan.tapnote.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -96,16 +95,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private void onHomeSelected() {
-        Fragment newFragment = new HomeFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content, newFragment);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.content, new HomeFragment());
         ft.commit();
     }
 
     private void onStarredSelected() {
-        Fragment newFragment = new StarredFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content, newFragment);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.content, new StarredFragment());
         ft.commit();
     }
 

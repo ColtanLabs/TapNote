@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.coltan.tapnote.activities.EditNoteActivity;
-import com.coltan.tapnote.db.Note;
+import com.coltan.tapnote.data.Note;
 import com.coltan.tapnote.fragments.HomeFragment;
 import com.coltan.tapnote.fragments.StarredFragment;
 
@@ -28,7 +29,9 @@ import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> implements Filterable {
 
-    private List<Note> mNoteList;
+    private static final String TAG = "NoteAdapter";
+
+    private ArrayList<Note> mNoteList;
     private List<Note> appListSearch;
     private int mWhichFrag;
     private final Context context;
@@ -69,7 +72,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
     }*/
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public NoteAdapter(List<Note> note, int whichFrag, Context context) {
+    public NoteAdapter(ArrayList<Note> note, int whichFrag, Context context) {
         this.mNoteList = note;
         mWhichFrag = whichFrag;
         this.context = context;
@@ -95,7 +98,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
             Collections.sort(mNoteList, new Comparator<Note>() {
                 @Override
                 public int compare(Note n1, Note n2) {
-                    if (n1.getDate() < n2.getDate()) {
+                    if (Long.parseLong(n1.getDate()) < Long.parseLong(n2.getDate())) {
                         return -1;
                     } else {
                         return 1;
@@ -107,7 +110,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
             Collections.sort(mNoteList, new Comparator<Note>() {
                 @Override
                 public int compare(Note n1, Note n2) {
-                    if (n1.getDate() > n2.getDate()) {
+                    if (Long.parseLong(n1.getDate()) > Long.parseLong(n2.getDate())) {
                         return -1;
                     } else {
                         return 1;
@@ -126,12 +129,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
             holder.txtTag.setText(mNote.getTag());
         }
         //Convert millisecond
-        String time = TimeUtils.getTimeAgo(mNote.getDate(), context);
+        String time = TimeUtils.getTimeAgo(Long.parseLong(mNote.getDate()), context);
         holder.txtDate.setText(time);
         //Log.d("NoteAdapter", mNote.getDate());
+        //Onclick the row
         holder.relRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "onClick: " + mNote.getID());
                 Activity activity = (Activity) context;
                 Intent i = new Intent(context, EditNoteActivity.class);
                 i.putExtra("id", mNote.getID());

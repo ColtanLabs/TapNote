@@ -36,7 +36,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="16dp">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/editTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/editTag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,13 +72,13 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="8dp">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/noteContent"
                     style="@style/NoteEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/note"
                     android:gravity="top"
+                    android:hint="@string/note"
                     android:inputType="textMultiLine|textCapSentences"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
             </android.support.design.widget.TextInputLayout>
