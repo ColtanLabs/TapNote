@@ -63,11 +63,11 @@ public class AddNoteActivity extends BaseActivity {
 
             case R.id.action_star:
                 if (starred.equals("0")) {
-                    item.setIcon(R.drawable.ic_star_white_24dp);
+                    item.setIcon(R.drawable.ic_action_star);
                     starred = "1";
                     Log.d("Info", "Starred = " + starred);
                 } else {
-                    item.setIcon(R.drawable.ic_star_border_white_24dp);
+                    item.setIcon(R.drawable.ic_action_star_outline);
                     starred = "0";
                     Log.d("Info", "Starred = " + starred);
                 }

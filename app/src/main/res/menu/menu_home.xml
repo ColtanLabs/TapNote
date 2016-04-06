@@ -11,7 +11,7 @@
 
     <item
         android:id="@+id/action_sort"
-        android:icon="@drawable/ic_sort_white_24dp"
+        android:icon="@drawable/ic_action_sort"
         android:title="@string/sort"
         android:orderInCategory="2"
         app:showAsAction="ifRoom">

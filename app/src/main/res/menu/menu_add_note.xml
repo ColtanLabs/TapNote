@@ -2,18 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_star"
-        android:icon="@drawable/ic_star_border_white_24dp"
+        android:icon="@drawable/ic_action_star_outline"
         android:title="@string/star"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_share"
-        android:icon="@drawable/ic_share_white_24dp"
+        android:icon="@drawable/ic_action_share"
         android:title="@string/share"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_copy"
-        android:icon="@drawable/ic_action_content_content_copy"
+        android:icon="@drawable/ic_action_content_copy"
         android:title="@string/copy"
         app:showAsAction="ifRoom" />
 </menu>

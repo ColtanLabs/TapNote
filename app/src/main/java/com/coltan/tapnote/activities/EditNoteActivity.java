@@ -28,6 +28,7 @@ import com.coltan.tapnote.data.NoteContract;
 
 public class EditNoteActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    // TODO: Fix rotate device crash
     private static final String TAG = "EditNoteActivity";
 
     private static final int NOTE_LOADER_ID = 0;
@@ -118,11 +119,11 @@ public class EditNoteActivity extends BaseActivity implements LoaderManager.Load
 
             case R.id.action_star:
                 if (starred.equals("0")) {
-                    item.setIcon(R.drawable.ic_star_white_24dp);
+                    item.setIcon(R.drawable.ic_action_star);
                     starred = "1";
                     Log.d("Info", "Starred = " + starred);
                 } else {
-                    item.setIcon(R.drawable.ic_star_border_white_24dp);
+                    item.setIcon(R.drawable.ic_action_star);
                     starred = "0";
                     Log.d("Info", "Starred = " + starred);
                 }
@@ -139,7 +140,7 @@ public class EditNoteActivity extends BaseActivity implements LoaderManager.Load
         if (starred.equals("0")) {
             //Log.d("Info", "Starred = 0");
         } else {
-            (menu.findItem(R.id.action_star)).setIcon(R.drawable.ic_star_white_24dp);
+            (menu.findItem(R.id.action_star)).setIcon(R.drawable.ic_action_star);
         }
         return super.onPrepareOptionsMenu(menu);
     }
