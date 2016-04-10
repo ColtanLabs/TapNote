@@ -1,7 +1,10 @@
 package com.coltan.tapnote.data;
 
 
-public class Note {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Note implements Parcelable {
     //private variables
     private String _id;
     private String _title;
@@ -81,4 +84,37 @@ public class Note {
     public void setStarred(String starred) {
         this._starred = starred;
     }
+
+
+    protected Note(Parcel in) {
+        this._id = in.readString();
+        this._title = in.readString();
+        this._note = in.readString();
+        this._tag = in.readString();
+        this._date = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeString(_title);
+        dest.writeString(_note);
+        dest.writeString(_tag);
+        dest.writeString(_date);
+    }
+
+    public static final Parcelable.Creator<Note> CREATOR = new Parcelable.Creator<Note>() {
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
 }

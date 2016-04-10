@@ -1,16 +1,16 @@
 package com.coltan.tapnote.fragments;
 
 
-import android.app.Fragment;
-import android.app.LoaderManager;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -63,6 +63,15 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
+        setHasOptionsMenu(true);
+
+        if (savedInstanceState != null) {
+            mNote = savedInstanceState.getParcelableArrayList("starrednote");
+            /*Log.d(TAG, "onCreate: savedInstance");
+            for (int i = 0; i < mNote.size(); i++) {
+                Log.d(TAG, "onCreate: Title" + mNote.get(i).getTitle());
+            }*/
+        }
     }
 
     @Override
@@ -74,7 +83,7 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_starred, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
@@ -84,12 +93,9 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
-        //initData();
-
         mAdapter = new NoteAdapter(mNote, 1, mContext);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -102,6 +108,12 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
         });
 
         return v;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("starrednote", mNote);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -184,12 +196,16 @@ public class StarredFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getActivity(),
-                NoteContract.NoteEntry.CONTENT_URI,
-                projections,
-                NoteContract.NoteEntry.COLUMN_STARRED + "=?",
-                new String[]{String.valueOf(1)},
-                null);
+        CursorLoader loader = null;
+        if (id == NOTE_LOADER_ID) {
+            loader = new CursorLoader(getActivity(),
+                    NoteContract.NoteEntry.CONTENT_URI,
+                    projections,
+                    NoteContract.NoteEntry.COLUMN_STARRED + "=?",
+                    new String[]{String.valueOf(1)},
+                    null);
+        }
+        return loader;
     }
 
     @Override

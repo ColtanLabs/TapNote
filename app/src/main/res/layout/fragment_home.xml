@@ -1,6 +1,7 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout
     android:id="@+id/main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,14 +16,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_search" />
+            android:src="@android:drawable/ic_menu_search"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:lines="2"
-            android:text="@string/search_noresults" />
+            android:text="@string/search_noresults"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -30,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="8dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -38,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:elevation="4dp"
-        android:src="@drawable/ic_action_content_add"
-        app:layout_behavior="com.coltan.tapnote.ScrollAwareFABBehavior" />
+        app:elevation="4dp"
+        app:layout_behavior="com.coltan.tapnote.ScrollAwareFABBehavior"
+        app:srcCompat="@drawable/ic_action_content_add"/>
 
 </android.support.design.widget.CoordinatorLayout>

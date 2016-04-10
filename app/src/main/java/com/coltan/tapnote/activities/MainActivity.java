@@ -1,11 +1,9 @@
 package com.coltan.tapnote.activities;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.coltan.tapnote.R;
@@ -38,17 +36,14 @@ public class MainActivity extends BaseActivity {
 
         mContext = this;
 
-        createDrawer();
-    }
-
-    private void createDrawer() {
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withTranslucentStatusBar(true)
                 .withToolbar(toolbar)
+                .withSavedInstance(savedInstanceState)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(FontAwesome.Icon.faw_home).withIdentifier(0),
-                        new PrimaryDrawerItem().withName(getString(R.string.starred)).withIcon(FontAwesome.Icon.faw_star).withIdentifier(1),
+                        new PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
+                        new PrimaryDrawerItem().withName(getString(R.string.starred)).withIcon(FontAwesome.Icon.faw_star).withIdentifier(2),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName(getString(R.string.backup_restore)).withIcon(GoogleMaterial.Icon.gmd_swap).withIdentifier(23),
                         new SecondaryDrawerItem().withName(getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(24),
@@ -60,11 +55,11 @@ public class MainActivity extends BaseActivity {
                     public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
                         long identifier = iDrawerItem.getIdentifier();
                         switch ((int) identifier) {
-                            case 0:
+                            case 1:
                                 onHomeSelected();
                                 toolbar.setTitle(getString(R.string.app_name));
                                 break;
-                            case 1:
+                            case 2:
                                 onStarredSelected();
                                 toolbar.setTitle(getString(R.string.starred));
                                 break;
@@ -78,32 +73,32 @@ public class MainActivity extends BaseActivity {
                                 onAboutSelected();
                                 break;
                             case 26:
-                                Log.d(TAG, "onItemClick: Feedback");
-                                Intent email = new Intent(Intent.ACTION_SEND);
-                                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"coltan.labs@gmail.com"});
-                                email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_subject).concat(" " + UtilsApp.getAppVersionName(mContext) + " (" + UtilsApp.getAppVersionCode(mContext) + ")"));
-                                email.setType("message/rfc822");
-                                startActivity(Intent.createChooser(email, getString(R.string.mail_chooser_title)));
+                                sendMail();
                                 break;
                         }
                         return false;
                     }
                 })
+
                 .build();
+        result.setSelection(1);
         result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
-        result.setSelection(0);
+    }
+
+    private void sendMail() {
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"coltan.labs@gmail.com"});
+        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_subject).concat(" " + UtilsApp.getAppVersionName(mContext) + " (" + UtilsApp.getAppVersionCode(mContext) + ")"));
+        email.setType("message/rfc822");
+        startActivity(Intent.createChooser(email, getString(R.string.mail_chooser_title)));
     }
 
     private void onHomeSelected() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.content, new HomeFragment());
-        ft.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment()).commit();
     }
 
     private void onStarredSelected() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.content, new StarredFragment());
-        ft.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, new StarredFragment()).commit();
     }
 
     private void onBackupRestoreSelected() {
@@ -131,6 +126,13 @@ public class MainActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //add the values which need to be saved from the drawer to the bundle
+        outState = result.saveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
 }
