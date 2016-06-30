@@ -104,19 +104,16 @@ public class MainActivity extends BaseActivity {
     private void onBackupRestoreSelected() {
         Intent intent = new Intent(this, BackupRestoreActivity.class);
         startActivity(intent);
-        //this.overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
     }
 
     private void onSettingsSelected() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
-        //this.overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
     }
 
     private void onAboutSelected() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
-        //this.overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
     }
 
     @Override

@@ -41,6 +41,5 @@ public class SettingsActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         NavUtils.navigateUpFromSameTask(this);
-        overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
     }
 }

@@ -85,6 +85,5 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
     }
 }
