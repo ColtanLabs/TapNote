@@ -40,6 +40,7 @@ public class BackupRestoreActivity extends BaseActivity {
         activity = this;
     }
 
+    //TODO: Permission not working as intented. Need fix
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,12 +81,14 @@ public class BackupRestoreActivity extends BaseActivity {
                 }
             }
         });
+
+        //TODO: Restore not working. Need fix.
         btnRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (UtilsApp.checkPermissions(activity)) {
-                    RestoreDatabaseTask rdt = new RestoreDatabaseTask();
-                    rdt.execute();
+                    /*RestoreDatabaseTask rdt = new RestoreDatabaseTask();
+                    rdt.execute();*/
                 }
             }
         });
@@ -97,11 +100,11 @@ public class BackupRestoreActivity extends BaseActivity {
             case MY_PERMISSIONS_REQUEST_WRITE_READ: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission was granted, yay!
-                    showMessage(getString(R.string.permission_backup_explain));
+                    //showMessage(getString(R.string.permission_backup_explain));
 
                 } else {
                     // Permission denied, boo! Disable the functionality that depends on this permission.
-                    showMessage(getString(R.string.permission_backup_denied));
+                    //showMessage(getString(R.string.permission_backup_denied));
                 }
                 return;
             }
@@ -111,13 +114,13 @@ public class BackupRestoreActivity extends BaseActivity {
         }
     }
 
-    private void showMessage(String message) {
+    /*private void showMessage(String message) {
         new AlertDialog.Builder(BackupRestoreActivity.this)
                 .setMessage(message)
                 .setPositiveButton("OK", null)
                 .create()
                 .show();
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
