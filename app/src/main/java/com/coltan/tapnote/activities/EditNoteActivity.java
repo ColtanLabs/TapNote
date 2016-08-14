@@ -165,7 +165,6 @@ public class EditNoteActivity extends BaseActivity implements LoaderManager.Load
         ut.execute();
 
         super.onBackPressed();
-        //overridePendingTransition(0, R.anim.slide_out_right);
         NavUtils.navigateUpFromSameTask(this);
         //finish();
     }
