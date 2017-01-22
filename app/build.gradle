@@ -15,10 +15,18 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFile = new File(
+                            output.outputFile.parent,
+                            output.outputFile.name.replace("app-release.apk", "TapNote-release-${variant.versionName}.apk"))
+                }
+            }
         }
         debug {
+            minifyEnabled false
             applicationIdSuffix '.debug'
             resValue "string", "app_name", "Tap Note dev"
         }
